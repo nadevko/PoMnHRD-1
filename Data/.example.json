@@ -1,0 +1,82 @@
+{
+  "name": "Examples of tests",
+  "description": "Every suite and test must have all those fields",
+  "topic": 1,
+  "externals": ["Literature and web references of the suite"],
+
+  "tests": [
+    {
+      "type": "Costs",
+      "costs": [1, 2, 3, 4, 5, 6, 7, 8],
+      "answers": [
+        "Number",
+        "of",
+        "Costs",
+        "and",
+        "Answers",
+        "should",
+        "be",
+        "equal"
+      ],
+
+      "name": "Type can be a 'Costs' or 0",
+      "description": "The test result will be determined based on the sum of the costs of the selected answers",
+      "topic": 1,
+      "externals": ["Literature and web references of the test"],
+
+      "questions": [
+        "Analog of question with only the Text field",
+        { "text": "Will use default Costs and Answers from test" },
+        {
+          "text": "Will override default Answers",
+          "answers": ["1", "2", "3", "4", "5", "6", "7", "8"]
+        },
+        {
+          "text": "Will override default Costs",
+          "costs": [0, 1, 2, 3, 4, 5, 6, 7]
+        },
+        {
+          "text": "Question with custom Costs and Answers",
+          "answers": [
+            "In",
+            "that",
+            "case",
+            "you",
+            "can",
+            "set",
+            "different",
+            "number",
+            "of",
+            "answers",
+            "and",
+            "costs"
+          ],
+          "costs": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        }
+      ],
+
+      "resuls": [
+        {
+          "text": "This result will be shown if the result is in -inf < x <= inf"
+        },
+        {
+          "text": "This result will be shown if the result is in -inf < x <= -1",
+          "to": -1
+        },
+        {
+          "text": "This result will be shown if the result is in 5 < x <= inf",
+          "from": 5
+        },
+        {
+          "text": "This result will be shown if the result is in 1 < x <= 100",
+          "from": 1,
+          "to": 100
+        },
+        {
+          "text": "Newest results have preference over earlier one",
+          "to": 10000
+        }
+      ]
+    }
+  ]
+}
