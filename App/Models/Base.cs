@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 
 namespace PMnHRD1.App.Models;
@@ -32,7 +31,4 @@ public abstract class Question
     public required string Text { get; set; }
 }
 
-public abstract class Result : Question
-{
-    public TimeSpan Duration { get; set; }
-}
+public abstract class Result : Question { }

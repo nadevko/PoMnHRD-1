@@ -1,0 +1,47 @@
+{
+  "name": "Examples of tests",
+  "description": "Every suite and test must have all those fields",
+  "topic": 1,
+  "externals": ["Literature and web references of the suite"],
+  "tests": [
+    {
+      "type": "Costs",
+      "name": "Test with results based on costs",
+      "description": "Result will be choosen by sum of answers costs",
+      "topic": 1,
+      "externals": ["Literature and web references of the suite"],
+      "costs": [-2, -1, 1, 2],
+      "answers": [
+        "First answers has first cost",
+        "User can choose only one answer",
+        "Answers will be written on buttons",
+        "Number of answers must be equal to number of costs"
+      ],
+      "questions": [
+        { "text": "Use default costs and answers" },
+        { "text": "Override costs", "costs": [1, 2, 3, 4] },
+        {
+          "text": "Override answers",
+          "answers": ["First", "Second", "Third", "Fourth"]
+        },
+        {
+          "text": "Override costs and answers. Now you can change number of them",
+          "costs": [1, 2, 3],
+          "answers": ["First", "Second", "Third"]
+        },
+        "Eqivalent to question with Text field only"
+      ],
+      "results": [
+        {
+          "text": "This result will be shown if from <= sum < to",
+          "from": -2,
+          "to": 0
+        },
+        {
+          "text": "If range limit not passed, program assumes it is infinity: 0 <= sum < inf",
+          "from": 0
+        }
+      ]
+    }
+  ]
+}
