@@ -1,7 +1,7 @@
 ﻿using System;
 using Avalonia;
 
-namespace PMnHRD1;
+namespace PMnHRD1.App;
 
 class Program
 {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using PMnHRD1.Models;
+using PMnHRD1.App.Models;
 
-namespace PMnHRD1.Lib;
+namespace PMnHRD1.App.Lib;
 
 public class TestConverter : JsonConverter<Test>
 {

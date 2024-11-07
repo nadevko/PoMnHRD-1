@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PMnHRD1.Models;
+namespace PMnHRD1.App.Models;
 
 enum Types : uint
 {

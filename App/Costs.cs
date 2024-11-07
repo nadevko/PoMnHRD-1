@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PMnHRD1.Models;
+namespace PMnHRD1.App.Models;
 
 public class TestCosts : Test {
     public new Stack<ResultCosts> Results { get; set; } = [];
