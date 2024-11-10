@@ -1,49 +1,69 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using PMnHRD1.App.Models;
 
-namespace PMnHRD1.App.Lib;
+namespace PMnHRD1.App.Services;
 
-public class Helpers
+public class Json
 {
-    public required JsonSerializerOptions Options { get; set; }
+    private static Json? _instance;
+    public static Json Instance => _instance ??= new Json();
+    public ObservableCollection<Suite> Suites { get; private set; }
+    private Json() => Suites = new(JsonHelpers.LoadDirectory<Suite>("Data"));
+}
 
-    public string GetPropertyName(string property) =>
+public static class JsonHelpers
+{
+    internal static string GetPropertyName(string property) =>
         Options.PropertyNamingPolicy == null
             ? property
             : Options.PropertyNamingPolicy.ConvertName(property);
 
-    public bool GetProperty<T>(JsonElement root, string property, out T? result)
+    internal static bool GetProperty<T>(JsonElement root, string property, out T? result)
     {
         var output = root.TryGetProperty(GetPropertyName(property), out var elem);
         result = output ? elem.Deserialize<T>(Options) : default;
         return output;
     }
 
-    public T GetProperty<T>(JsonElement root, string property, T fallback) =>
+    internal static T GetProperty<T>(JsonElement root, string property, T fallback) =>
         GetProperty<T>(root, property, out var result) ? result ?? fallback : fallback;
 
-    public T GetProperty<T>(JsonElement root, string property) =>
+    internal static T GetProperty<T>(JsonElement root, string property) =>
         (GetProperty<T>(root, property, out var result) && result != null)
             ? result
             : throw new JsonException($"{property} property is missing.");
+
+    internal static List<T> LoadDirectory<T>(string path) =>
+        Directory.GetFiles(path, "*.json").AsParallel().Select(LoadFile<T>).ToList();
+
+    internal static T LoadFile<T>(string path) =>
+        JsonSerializer.Deserialize<T>(File.ReadAllText(path), Options)
+        ?? throw new JsonException($"Failed to deserialize {path} JSON.");
+
+    public static readonly JsonSerializerOptions Options =
+        new()
+        {
+            Converters = { new TestConverter(), new TestCostsConverter() },
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
 }
 
 public class TestConverter : JsonConverter<Test>
 {
-    private Helpers? Helpers;
-
     public override Test? Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
     )
     {
-        Helpers = new Helpers { Options = options };
         var root = JsonDocument.ParseValue(ref reader).RootElement;
-        if (!root.TryGetProperty(Helpers.GetPropertyName("Type"), out var elem))
+        if (!root.TryGetProperty(JsonHelpers.GetPropertyName("Type"), out var elem))
             throw new JsonException("Type property is missing.");
 
         var type = elem.ValueKind switch
@@ -67,27 +87,24 @@ public class TestConverter : JsonConverter<Test>
 
 public class TestCostsConverter : JsonConverter<TestCosts>
 {
-    private Helpers? Helpers;
-
     public override TestCosts? Read(
         ref Utf8JsonReader reader,
         Type typeToConvert,
         JsonSerializerOptions options
     )
     {
-        Helpers = new Helpers { Options = options };
         var root = JsonDocument.ParseValue(ref reader).RootElement;
         var test = new TestCosts()
         {
-            Name = Helpers.GetProperty<string>(root, "Name"),
-            Description = Helpers.GetProperty<string>(root, "Description"),
-            Topic = Helpers.GetProperty<uint>(root, "Topic"),
-            Externals = Helpers.GetProperty(root, "Externals", new List<string>())!,
-            Answers = Helpers.GetProperty<string[]>(root, "Answers"),
-            Costs = Helpers.GetProperty<int[]>(root, "Costs"),
+            Name = JsonHelpers.GetProperty<string>(root, "Name"),
+            Description = JsonHelpers.GetProperty<string>(root, "Description"),
+            Id = JsonHelpers.GetProperty<uint>(root, "Id"),
+            Externals = JsonHelpers.GetProperty(root, "Externals", new List<string>())!,
+            Answers = JsonHelpers.GetProperty<string[]>(root, "Answers"),
+            Costs = JsonHelpers.GetProperty<int[]>(root, "Costs"),
         };
         if (
-            !root.TryGetProperty(Helpers.GetPropertyName("Questions"), out var array)
+            !root.TryGetProperty(JsonHelpers.GetPropertyName("Questions"), out var array)
             || array.GetArrayLength() == 0
         )
             throw new JsonException("Questions is missing or null.");
@@ -102,7 +119,7 @@ public class TestCostsConverter : JsonConverter<TestCosts>
             test.Questions.Add(question);
         }
         if (
-            !root.TryGetProperty(Helpers.GetPropertyName("Results"), out array)
+            !root.TryGetProperty(JsonHelpers.GetPropertyName("Results"), out array)
             || array.GetArrayLength() == 0
         )
             throw new JsonException("Results is missing or null.");
@@ -110,9 +127,9 @@ public class TestCostsConverter : JsonConverter<TestCosts>
             test.Results.Push(
                 new ResultCosts
                 {
-                    Text = Helpers.GetProperty<string>(elem, "Text"),
-                    From = Helpers.GetProperty(elem, "From", int.MinValue),
-                    To = Helpers.GetProperty(elem, "To", int.MaxValue),
+                    Text = JsonHelpers.GetProperty<string>(elem, "Text"),
+                    From = JsonHelpers.GetProperty(elem, "From", int.MinValue),
+                    To = JsonHelpers.GetProperty(elem, "To", int.MaxValue),
                 }
             );
         return test;
@@ -129,9 +146,9 @@ public class TestCostsConverter : JsonConverter<TestCosts>
             },
             JsonValueKind.Object => new QuestionCosts()
             {
-                Text = Helpers!.GetProperty<string>(elem, "Text"),
-                Costs = Helpers.GetProperty<int[]?>(elem, "Costs", null),
-                Answers = Helpers.GetProperty<string[]?>(elem, "Answers", null),
+                Text = JsonHelpers.GetProperty<string>(elem, "Text"),
+                Costs = JsonHelpers.GetProperty<int[]?>(elem, "Costs", null),
+                Answers = JsonHelpers.GetProperty<string[]?>(elem, "Answers", null),
             },
             _ => throw new JsonException("Question must be a string or object."),
         };

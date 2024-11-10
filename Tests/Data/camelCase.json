@@ -1,6 +1,6 @@
 {
   "name": "Examples of tests",
   "description": "Every suite and test must have all those fields",
-  "topic": 1,
+  "id": 1,
   "externals": []
 }

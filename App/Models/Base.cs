@@ -11,7 +11,7 @@ public abstract class Base
 {
     public required string Name { get; set; }
     public required string Description { get; set; }
-    public required uint Topic { get; set; }
+    public required uint Id { get; set; }
     public required List<string> Externals { get; set; }
 }
 

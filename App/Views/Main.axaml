@@ -3,21 +3,16 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
+  d:DesignMinWidth="600" d:DesignMinHeight="400"
+  MinWidth="600" MinHeight="400"
   x:Class="PMnHRD1.App.Views.Main"
   Title="PMnHRD1">
   <TabControl Margin="4">
     <TabItem Header="Suites">
-      <Grid ColumnDefinitions="5*,90*,5*" RowDefinitions="10*,90*">
-        <TextBox Grid.Column="1" Grid.Row="0" Watermark="Test name is..." Height="16"
-          VerticalAlignment="Center" HorizontalAlignment="Stretch" />
-        <ListBox Name="suites" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" />
-      </Grid>
     </TabItem>
     <TabItem Header="Stats">
-      <TextBlock Margin="4">Stats</TextBlock>
     </TabItem>
-    <TabItem Header="Settings">
-      <TextBlock Margin="4">Settings</TextBlock>
+    <TabItem Header="Achivements">
     </TabItem>
   </TabControl>
 </Window>

@@ -1,10 +1,10 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using DeepEqual.Syntax;
-using PMnHRD1.App.Lib;
+using PMnHRD1.App.Services;
 using PMnHRD1.App.Models;
 
-namespace PMnHRD1.Tests.Lib;
+namespace PMnHRD1.Tests.Services;
 
 [TestClass]
 public class JSON
@@ -12,21 +12,17 @@ public class JSON
     private static string CallerFilePath([CallerFilePath] string? callerFilePath = null) =>
         callerFilePath ?? throw new ArgumentNullException(nameof(callerFilePath));
 
-    private static string GetTestPath(string test) =>
+    private static string GetSuitePath(string suite) =>
         Path.Combine(
             Directory.GetParent(CallerFilePath())!.Parent!.FullName,
             "Data",
-            test + ".json"
+            suite + ".json"
         );
 
     [TestInitialize]
     public void SetUp()
     {
-        _options = new JsonSerializerOptions
-        {
-            Converters = { new TestConverter(), new TestCostsConverter() },
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
+        _options = JsonHelpers.Options;
     }
 
     private JsonSerializerOptions? _options;
@@ -35,7 +31,7 @@ public class JSON
     [DynamicData(nameof(TestPairs), DynamicDataSourceType.Method)]
     public void Read_ValidJSON_WithoutExceptions(string path, Suite expected)
     {
-        Assert.IsTrue(File.Exists(path = GetTestPath(path)));
+        Assert.IsTrue(File.Exists(path = GetSuitePath(path)));
         var suite = File.ReadAllText(path);
 
         var actual = JsonSerializer.Deserialize<Suite>(suite, _options);
@@ -58,7 +54,7 @@ public class JSON
                 {
                     Name = "Examples of tests",
                     Description = "Every suite and test must have all those fields",
-                    Topic = 1,
+                    Id = 1,
                     Externals = [],
                 },
             ],
@@ -68,7 +64,7 @@ public class JSON
                 {
                     Name = "Examples of tests",
                     Description = "Every suite and test must have all those fields",
-                    Topic = 1,
+                    Id = 1,
                     Externals = ["Literature and web references of the suite"],
                     Tests =
                     [
@@ -76,7 +72,7 @@ public class JSON
                         {
                             Name = "Test with results based on costs",
                             Description = "Result will be choosen by sum of answers costs",
-                            Topic = 1,
+                            Id = 1,
                             Externals = ["Literature and web references of the suite"],
                             Costs = [-2, -1, 1, 2],
                             Answers =
