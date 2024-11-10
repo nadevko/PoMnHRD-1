@@ -1,36 +1,37 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:PMnHRD1.App.Models;assembly=PMnHRD1.App"
+        xmlns:models="clr-namespace:PMnHRD1.App.Models;assembly=PMnHRD1.App"
+        xmlns:views="clr-namespace:PMnHRD1.App.Views;assembly=PMnHRD1.App"
+        x:DataType="views:MainViewModel"
         x:Class="PMnHRD1.App.Views.Main"
         MinWidth="800" MinHeight="600"
         Title="Main Window">
+    <Window.DataContext>
+        <views:MainViewModel />
+    </Window.DataContext>
 
     <TabControl>
         <TabItem Header="Suites">
-            <StackPanel>
-                <ListBox Name="SuitesList" Margin="4">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate x:DataType="local:Suite">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
-                                <ListBox ItemsSource="{Binding Tests}">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate x:DataType="local:Test">
-                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                                                <!-- <Image Source="{Binding ImagePath}" Width="50" Height="50" /> -->
-                                                <StackPanel Margin="10,0,0,0">
-                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                                                    <TextBlock Text="{Binding Description}" MaxLines="2" />
-                                                </StackPanel>
-                                            </StackPanel>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
+            <ItemsControl ItemsSource="{Binding Suites}" Margin="4">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:Suite">
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="26" Tapped="OnSuiteTap"/>
+                            <ItemsControl ItemsSource="{Binding Tests}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="models:Test">
+                                        <Grid Margin="5" ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto" Tapped="OnTestTap">
+                                            <!-- <Image Source="{Binding ImagePath}" Width="50" Height="50" Grid.Column="0" Grid.RowSpan="2"/> -->
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" Grid.Column="1" Margin="10,0" FontSize="22"/>
+                                            <TextBlock Text="{Binding Description}" MaxLines="2" Grid.Column="1" Margin="16,4" Grid.Row="1" FontSize="18"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </TabItem>
 
         <TabItem Header="Stats">
