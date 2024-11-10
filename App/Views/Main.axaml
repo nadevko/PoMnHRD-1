@@ -1,18 +1,53 @@
 <Window xmlns="https://github.com/avaloniaui"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-  mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="400"
-  d:DesignMinWidth="600" d:DesignMinHeight="400"
-  MinWidth="600" MinHeight="400"
-  x:Class="PMnHRD1.App.Views.Main"
-  Title="PMnHRD1">
-  <TabControl Margin="4">
-    <TabItem Header="Suites">
-    </TabItem>
-    <TabItem Header="Stats">
-    </TabItem>
-    <TabItem Header="Achivements">
-    </TabItem>
-  </TabControl>
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PMnHRD1.App.Models;assembly=PMnHRD1.App"
+        x:Class="PMnHRD1.App.Views.Main"
+        MinWidth="800" MinHeight="600"
+        Title="Main Window">
+
+    <TabControl>
+        <TabItem Header="Suites">
+            <StackPanel>
+                <ListBox Name="SuitesList" Margin="4">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate x:DataType="local:Suite">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="20"/>
+                                <ListBox ItemsSource="{Binding Tests}">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate x:DataType="local:Test">
+                                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                                <!-- <Image Source="{Binding ImagePath}" Width="50" Height="50" /> -->
+                                                <StackPanel Margin="10,0,0,0">
+                                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                                    <TextBlock Text="{Binding Description}" MaxLines="2" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Stats">
+            <StackPanel>
+                <TextBlock Text="Usage stats will go here." FontSize="14"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Stat 1: ..." Grid.Column="0" />
+                    <TextBlock Text="Stat 2: ..." Grid.Column="1" />
+                </Grid>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Achievements">
+        </TabItem>
+    </TabControl>
 </Window>

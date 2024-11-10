@@ -32,3 +32,9 @@ public abstract class Question
 }
 
 public abstract class Result : Question { }
+
+public class Achievement
+{
+    public required string Name { get; set; }
+    public required string Description { get; set; }
+}

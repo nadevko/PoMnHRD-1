@@ -14,6 +14,7 @@ public class Json
     private static Json? _instance;
     public static Json Instance => _instance ??= new Json();
     public ObservableCollection<Suite> Suites { get; private set; }
+
     private Json() => Suites = new(JsonHelpers.LoadDirectory<Suite>("Data"));
 }
 
