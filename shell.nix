@@ -1,5 +1,10 @@
 {
-  pkgs ? import <nixpkgs> { overlays = [ (import <bsuir-tex/nixpkgs>) ]; },
+  pkgs ? import <nixpkgs> {
+    overlays = [
+      (import <bsuir-tex/nixpkgs>)
+      (import ./nixpkgs)
+    ];
+  },
 }:
 with pkgs;
 let
@@ -12,7 +17,7 @@ let
   ];
 in
 mkShell rec {
-  name = "SD-2";
+  name = "PMnHRD-1";
 
   vscode-settings = writeText "settings.json" (
     builtins.toJSON {

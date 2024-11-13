@@ -1,3 +1,6 @@
 namespace PMnHRD1.App.ViewModels;
 
-public class Main : ViewModel { }
+public partial class Main : ViewModel
+{
+    public string Greeting => "Welcome to Avalonia!";
+}
