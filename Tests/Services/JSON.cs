@@ -1,55 +1,38 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
 using DeepEqual.Syntax;
-using PMnHRD1.App.Services;
 using PMnHRD1.App.Models;
+using PMnHRD1.App.Services;
 
 namespace PMnHRD1.Tests.Services;
 
 [TestClass]
 public class JSON
 {
-    private static string CallerFilePath([CallerFilePath] string? callerFilePath = null) =>
-        callerFilePath ?? throw new ArgumentNullException(nameof(callerFilePath));
-
-    private static string GetSuitePath(string suite) =>
-        Path.Combine(
-            Directory.GetParent(CallerFilePath())!.Parent!.FullName,
-            "Data",
-            suite + ".json"
-        );
-
     [TestInitialize]
     public void SetUp()
     {
-        _options = JsonHelpers.Options;
+        _options = Json.Options;
     }
 
     private JsonSerializerOptions? _options;
 
     [TestMethod]
     [DynamicData(nameof(TestPairs), DynamicDataSourceType.Method)]
-    public void Read_ValidJSON_WithoutExceptions(string path, Suite expected)
+    public void Read_ValidJSON_WithoutExceptions(string file, Suite expected)
     {
-        Assert.IsTrue(File.Exists(path = GetSuitePath(path)));
-        var suite = File.ReadAllText(path);
+        file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", file);
+        Assert.IsTrue(File.Exists(file));
 
-        var actual = JsonSerializer.Deserialize<Suite>(suite, _options);
+        var actual = Json.LoadFile<Suite>(file);
 
-        if (expected.Tests != null)
-            if (expected.Tests[0] != null)
-                if (expected.Tests[0].Results.Count == 3)
-                {
-                    expected.Tests[0].Results.Pop();
-                    expected.Tests[0].Results.Pop();
-                }
         actual.WithDeepEqual(expected).Assert();
     }
 
     private static IEnumerable<object[]> TestPairs() =>
         [
             [
-                "camelCase",
+                "camelCase.json",
                 new Suite
                 {
                     Name = "Examples of tests",
@@ -59,7 +42,7 @@ public class JSON
                 },
             ],
             [
-                "costs",
+                "costs.json",
                 new Suite
                 {
                     Name = "Examples of tests",
@@ -72,7 +55,6 @@ public class JSON
                         {
                             Name = "Test with results based on costs",
                             Description = "Result will be choosen by sum of answers costs",
-                            Id = 1,
                             Externals = ["Literature and web references of the suite"],
                             Costs = [-2, -1, 1, 2],
                             Answers =
