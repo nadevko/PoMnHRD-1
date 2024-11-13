@@ -1,5 +1,6 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 
 namespace PMnHRD1.App;
@@ -10,9 +11,12 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
-        _ = Services.Json.Instance;
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            BindingPlugins.DataValidators.RemoveAt(0);
+            desktop.MainWindow = new Views.Main { DataContext = new ViewModels.Main() };
             desktop.MainWindow = new Views.Main();
+        }
         base.OnFrameworkInitializationCompleted();
     }
 }

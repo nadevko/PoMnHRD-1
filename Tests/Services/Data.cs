@@ -1,18 +1,16 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Text.Json;
 using DeepEqual.Syntax;
 using PMnHRD1.App.Models;
-using PMnHRD1.App.Services;
 
 namespace PMnHRD1.Tests.Services;
 
 [TestClass]
-public class JSON
+public class Data
 {
     [TestInitialize]
     public void SetUp()
     {
-        _options = Json.Options;
+        _options = App.Services.Data.Options;
     }
 
     private JsonSerializerOptions? _options;
@@ -24,7 +22,7 @@ public class JSON
         file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", file);
         Assert.IsTrue(File.Exists(file));
 
-        var actual = Json.LoadFile<Suite>(file);
+        var actual = App.Services.Data.LoadFile<Suite>(file);
 
         actual.WithDeepEqual(expected).Assert();
     }

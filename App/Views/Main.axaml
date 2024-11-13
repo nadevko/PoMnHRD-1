@@ -1,13 +1,15 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:models="clr-namespace:PMnHRD1.App.Models;assembly=PMnHRD1.App"
-        xmlns:views="clr-namespace:PMnHRD1.App.Views;assembly=PMnHRD1.App"
-        x:DataType="views:MainViewModel"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:vm="using:PMnHRD1.App.ViewModels"
         x:Class="PMnHRD1.App.Views.Main"
-        MinWidth="800" MinHeight="600"
-        Title="Main Window">
-    <Window.DataContext>
-        <views:MainViewModel />
-    </Window.DataContext>
-    <ContentControl Content="{Binding View}" />
+        x:DataType="vm:Main"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="PMnHRD1.App">
+    <Design.DataContext>
+        <vm:Main />
+    </Design.DataContext>
+    <TextBlock Text="Binding Greeting" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </Window>

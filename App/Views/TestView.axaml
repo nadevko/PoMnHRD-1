@@ -1,7 +1,0 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:models="using:PMnHRD1.App.Models"
-             xmlns:views="using:PMnHRD1.App.Views"
-             x:DataType="views:TestViewModel"
-             x:Class="PMnHRD1.App.Views.TestView">
-</UserControl>

@@ -9,13 +9,13 @@ using PMnHRD1.App.Models;
 
 namespace PMnHRD1.App.Services;
 
-public class Json
+public class Data
 {
-    private static Json? _instance;
-    public static Json Instance => _instance ??= new Json();
+    private static Data? _instance;
+    public static Data Instance => _instance ??= new Data();
     public ObservableCollection<Suite> Suites { get; private set; }
 
-    private Json() => Suites = new(LoadDirectory<Suite>().OrderBy(x => x.Id));
+    private Data() => Suites = new(LoadDirectory<Suite>().OrderBy(x => x.Id));
 
     public static string GetPropertyName(string property) =>
         Options.PropertyNamingPolicy == null
@@ -65,7 +65,7 @@ public class TestConverter : JsonConverter<ITest>
     )
     {
         var root = JsonDocument.ParseValue(ref reader).RootElement;
-        if (!root.TryGetProperty(Json.GetPropertyName("Type"), out var elem))
+        if (!root.TryGetProperty(Data.GetPropertyName("Type"), out var elem))
             throw new JsonException("Type property is missing.");
 
         var type = elem.ValueKind switch
@@ -98,15 +98,15 @@ public class TestCostsConverter : JsonConverter<TestCosts>
         var root = JsonDocument.ParseValue(ref reader).RootElement;
         var test = new TestCosts()
         {
-            Name = Json.GetProperty<string>(root, "Name"),
-            Description = Json.GetProperty<string>(root, "Description"),
-            Externals = Json.GetProperty(root, "Externals", new List<string>())!,
-            Answers = Json.GetProperty<string[]>(root, "Answers"),
-            Costs = Json.GetProperty<int[]>(root, "Costs"),
+            Name = Data.GetProperty<string>(root, "Name"),
+            Description = Data.GetProperty<string>(root, "Description"),
+            Externals = Data.GetProperty(root, "Externals", new List<string>())!,
+            Answers = Data.GetProperty<string[]>(root, "Answers"),
+            Costs = Data.GetProperty<int[]>(root, "Costs"),
         };
 
         test.Questions =
-            root.TryGetProperty(Json.GetPropertyName("Questions"), out var array)
+            root.TryGetProperty(Data.GetPropertyName("Questions"), out var array)
             && array.GetArrayLength() > 0
                 ? array
                     .EnumerateArray()
@@ -123,9 +123,9 @@ public class TestCostsConverter : JsonConverter<TestCosts>
                             },
                             JsonValueKind.Object => new QuestionCosts()
                             {
-                                Text = Json.GetProperty<string>(elem, "Text"),
-                                Costs = Json.GetProperty<int[]?>(elem, "Costs", null),
-                                Answers = Json.GetProperty<string[]?>(elem, "Answers", null),
+                                Text = Data.GetProperty<string>(elem, "Text"),
+                                Costs = Data.GetProperty<int[]?>(elem, "Costs", null),
+                                Answers = Data.GetProperty<string[]?>(elem, "Answers", null),
                             },
                             _ => throw new JsonException("Question must be a string or object."),
                         }
@@ -140,16 +140,16 @@ public class TestCostsConverter : JsonConverter<TestCosts>
                 : throw new JsonException("Questions is missing or null.");
 
         test.Results =
-            root.TryGetProperty(Json.GetPropertyName("Results"), out array)
+            root.TryGetProperty(Data.GetPropertyName("Results"), out array)
             && array.GetArrayLength() > 0
                 ? new Stack<ResultCosts>(
                     array
                         .EnumerateArray()
                         .Select(elem => new ResultCosts
                         {
-                            Text = Json.GetProperty<string>(elem, "Text"),
-                            From = Json.GetProperty(elem, "From", int.MinValue),
-                            To = Json.GetProperty(elem, "To", int.MaxValue),
+                            Text = Data.GetProperty<string>(elem, "Text"),
+                            From = Data.GetProperty(elem, "From", int.MinValue),
+                            To = Data.GetProperty(elem, "To", int.MaxValue),
                         })
                 )
                 : throw new JsonException("Results is missing or null.");
