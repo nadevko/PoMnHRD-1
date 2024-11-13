@@ -5,7 +5,7 @@ using Avalonia.Markup.Xaml;
 
 namespace PMnHRD1.App;
 
-public partial class App : Application
+public sealed class App : Application
 {
     public override void Initialize() => AvaloniaXamlLoader.Load(this);
 
@@ -15,7 +15,6 @@ public partial class App : Application
         {
             BindingPlugins.DataValidators.RemoveAt(0);
             desktop.MainWindow = new Views.Main { DataContext = new ViewModels.Main() };
-            desktop.MainWindow = new Views.Main();
         }
         base.OnFrameworkInitializationCompleted();
     }

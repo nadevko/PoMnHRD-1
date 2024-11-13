@@ -1,44 +1,34 @@
+using System;
 using System.Diagnostics;
 using Avalonia.Controls;
-using PMnHRD1.App.Views;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PMnHRD1.App.ViewModels;
 
 public partial class Main : ViewModel
 {
-    public UserControl CurrentView
+    public Main()
     {
-        get =>
-            _currentView switch
+        _tabsView = new Views.Tabs()
+        {
+            DataContext = new Tabs(),
+            selectionChangedEventHandler = (test) =>
             {
-                Views.Tabs => _tabsView,
-                Views.Test => _testView,
-                Views.Question => _questionView,
-                Views.Result => _resultView,
-                _ => throw new UnreachableException(),
-            };
-        set =>
-            _currentView = value switch
-            {
-                Tabs => Views.Tabs,
-                Test => Views.Test,
-                Question => Views.Question,
-                Result => Views.Result,
-                _ => throw new UnreachableException(),
-            };
+                Console.WriteLine($"Selected test: {test}");
+                CurrentView = _testView;
+            },
+        };
+        CurrentView = _tabsView;
     }
 
-    private enum Views
-    {
-        Tabs,
-        Test,
-        Question,
-        Result,
-    }
-    private Views _currentView = Views.Tabs;
 
-    private UserControl _tabsView = new Tabs();
-    private UserControl _testView = new Test();
-    private UserControl _questionView = new Question();
-    private UserControl _resultView = new Result();
+    [ObservableProperty]
+    private UserControl _currentView;
+    private readonly UserControl _tabsView;
+    private readonly UserControl _testView = new Views.Test() { DataContext = new Test() };
+    private readonly UserControl _questionView = new Views.Question()
+    {
+        DataContext = new Question(),
+    };
+    private readonly UserControl _resultView = new Views.Result() { DataContext = new Result() };
 }

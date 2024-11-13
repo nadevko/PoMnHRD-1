@@ -20,6 +20,11 @@ public class TestCosts : ITest
         set => _questionCosts = value.OfType<QuestionCosts>().ToList();
     }
     private List<QuestionCosts> _questionCosts = [];
+
+    public int Count
+    {
+        get => _questionCosts.Count;
+    }
 }
 
 public class QuestionCosts : IQuestion

@@ -9,7 +9,11 @@
       "name": "Test with results based on costs",
       "description": "Result will be choosen by sum of answers costs",
       "id": 1,
-      "externals": ["Literature and web references of the suite"],
+      "externals": [
+        "Literature and web references of the suite",
+        "Literature and web references of the suite",
+        "Literature and web references of the suite"
+      ],
       "costs": [-2, -1, 1, 2],
       "answers": [
         "First answers has first cost",

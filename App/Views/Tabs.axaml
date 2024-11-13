@@ -3,6 +3,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="using:PMnHRD1.App.ViewModels"
+             xmlns:m="using:PMnHRD1.App.Models"
+             x:DataType="vm:Tabs"
              x:Class="PMnHRD1.App.Views.Tabs">
-  Welcome to Avalonia!
+  <Design.DataContext>
+    <vm:Tabs />
+  </Design.DataContext>
+
+  <TabControl>
+    <TabItem Header="Suites">
+      <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+
+      <ItemsControl ItemsSource="{Binding Suites}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="m:Suite">
+
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
+              <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4">
+                <TextBlock Text="{Binding Name}" FontSize="22" FontWeight="Bold" Margin="16,8" VerticalAlignment="Center"/>
+                <Border Background="Black" Width="2" Margin="5"/>
+                <TextBlock Text="{Binding Description}" FontSize="16" Margin="16,8" VerticalAlignment="Center"/>
+              </StackPanel>
+
+              <ListBox Name="TabsListBox{Binding Id}" ItemsSource="{Binding Tests}" SelectionChanged="OnSelectionChanged" Margin="4">
+                <ListBox.ItemTemplate>
+                  <DataTemplate x:DataType="m:ITest">
+
+                    <DockPanel Margin="4">
+                      <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                      <TextBlock DockPanel.Dock="Right" Text="{Binding Count} questions" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    </DockPanel>
+
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+
+            </StackPanel>
+
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      </ScrollViewer>
+    </TabItem>
+    <TabItem Header="Stats">
+    </TabItem>
+    <TabItem Header="Achievements">
+    </TabItem>
+  </TabControl>
 </UserControl>
