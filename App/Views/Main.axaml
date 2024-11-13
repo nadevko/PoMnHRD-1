@@ -11,4 +11,5 @@
     <Design.DataContext>
         <vm:Main />
     </Design.DataContext>
+    <ContentControl Content="{Binding CurrentView}" />
 </Window>
