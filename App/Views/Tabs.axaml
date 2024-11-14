@@ -32,7 +32,7 @@
 
                     <DockPanel Margin="4">
                       <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                      <TextBlock DockPanel.Dock="Right" Text="{Binding Count} questions" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                      <TextBlock DockPanel.Dock="Right" Text="{Binding Count}" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                     </DockPanel>
 
                   </DataTemplate>

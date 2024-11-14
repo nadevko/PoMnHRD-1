@@ -4,9 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="using:PMnHRD1.App.ViewModels"
+             xmlns:m="using:PMnHRD1.App.Models"
              x:DataType="vm:Test"
              x:Class="PMnHRD1.App.Views.Test">
   <Design.DataContext>
     <vm:Test />
   </Design.DataContext>
+  <StackPanel Orientation="Vertical">
+    <Border BorderBrush="Black" BorderThickness="0,0,0,2">
+      <DockPanel>
+
+        <TextBlock Text="{Binding Data.Name}" FontSize="36" FontWeight="Bold" Margin="16" VerticalAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
+        <Button Width="40" Height="40" Margin="16" Background="{Binding $parent.Background}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding OnGoBack}">
+          <Button.Content>
+            <PathIcon Data="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" Foreground="Black" Width="24" Height="24"/>
+          </Button.Content>
+        </Button>
+
+      </DockPanel>
+    </Border>
+  </StackPanel>
+    <!-- <TextBox Text="{x:Bind Name, Mode=TwoWay}" Grid.Column="1" Grid.Row="0" />
+    <Button Content="Click Me" Command="{x:Bind ClickCommand}" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" />
+    <TextBlock Text="{x:Bind Message}" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" />
+  </Grid> -->
 </UserControl>

@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -14,18 +13,22 @@ public partial class Main : ViewModel
             DataContext = new Tabs(),
             selectionChangedEventHandler = (test) =>
             {
-                Console.WriteLine($"Selected test: {test}");
+                if (_testView!.DataContext is Test testViewModel)
+                    testViewModel.Data = test;
                 CurrentView = _testView;
             },
+        };
+        _testView = new Views.Test()
+        {
+            DataContext = new Test() { GoBack = () => CurrentView = _tabsView },
         };
         CurrentView = _tabsView;
     }
 
-
     [ObservableProperty]
     private UserControl _currentView;
     private readonly UserControl _tabsView;
-    private readonly UserControl _testView = new Views.Test() { DataContext = new Test() };
+    private readonly UserControl _testView;
     private readonly UserControl _questionView = new Views.Question()
     {
         DataContext = new Question(),
