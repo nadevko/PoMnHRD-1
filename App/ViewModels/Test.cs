@@ -10,13 +10,21 @@ public partial class Test : ViewModel
     public Test()
     {
         GoBackCommand = new RelayCommand(OnGoBack);
+        GoTestCommand = new RelayCommand(OnGoTest);
     }
 
     [ObservableProperty]
     public ITest _data = null!;
 
-    public ICommand GoBackCommand { get; }
+    private ICommand GoBackCommand { get; }
     public delegate void GoBackDelegate();
     public GoBackDelegate GoBack { get; set; } = null!;
+
     public void OnGoBack() => GoBack.Invoke();
+
+    private ICommand GoTestCommand { get; }
+    public delegate void GoTestDelegate(ITest data);
+    public GoTestDelegate GoTest { get; set; } = null!;
+
+    public void OnGoTest() => GoTest.Invoke(Data);
 }

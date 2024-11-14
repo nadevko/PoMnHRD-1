@@ -1,4 +1,3 @@
-using System;
 using Avalonia.Controls;
 using CommunityToolkit.Mvvm.ComponentModel;
 
@@ -20,7 +19,15 @@ public partial class Main : ViewModel
         };
         _testView = new Views.Test()
         {
-            DataContext = new Test() { GoBack = () => CurrentView = _tabsView },
+            DataContext = new Test()
+            {
+                GoBack = () => CurrentView = _tabsView,
+                GoTest = (test) =>
+                {
+                    _questionView.DataContext = new Question(test);
+                    CurrentView = _questionView;
+                },
+            },
         };
         CurrentView = _tabsView;
     }
@@ -29,9 +36,6 @@ public partial class Main : ViewModel
     private UserControl _currentView;
     private readonly UserControl _tabsView;
     private readonly UserControl _testView;
-    private readonly UserControl _questionView = new Views.Question()
-    {
-        DataContext = new Question(),
-    };
-    private readonly UserControl _resultView = new Views.Result() { DataContext = new Result() };
+    private readonly UserControl _questionView = new Views.Question();
+    private readonly UserControl _resultView = new Views.Result();
 }
