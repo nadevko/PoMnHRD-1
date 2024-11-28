@@ -1,21 +1,14 @@
-using Avalonia.Controls;
-using PMnHRD1.App.Models;
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace PMnHRD1.App.Views;
 
-public partial class Tabs : UserControl
+public partial class Tabs : ReactiveUserControl<ViewModels.Tabs>
 {
-    public Tabs() => InitializeComponent();
-
-    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    public Tabs()
     {
-        if (sender is not ListBox ListBox)
-            return;
-        if (ListBox.SelectedItem is not ITest test)
-            return;
-        selectionChangedEventHandler?.Invoke(test);
+        this.WhenActivated(disposables => { });
+        AvaloniaXamlLoader.Load(this);
     }
-
-    public delegate void SelectionChangedEventHandler(ITest test);
-    public required SelectionChangedEventHandler selectionChangedEventHandler { get; set; }
 }

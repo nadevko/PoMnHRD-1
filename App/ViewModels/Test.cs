@@ -1,30 +1,20 @@
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
+using System.Reactive;
 using PMnHRD1.App.Models;
+using ReactiveUI;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Test : ViewModel
+public partial class Test : ReactiveObject, IRoutableViewModel
 {
-    public Test()
+    public IScreen HostScreen { get; }
+    public string UrlPathSegment { get; } = "test";
+    public ReactiveCommand<Unit, IRoutableViewModel?> GoBack { get; }
+
+    public Test(IScreen screen, ITest test)
     {
-        GoBackCommand = new RelayCommand(OnGoBack);
-        GoTestCommand = new RelayCommand(OnGoTest);
+        HostScreen = screen;
+        GoBack = ReactiveCommand.CreateFromObservable(
+            () => HostScreen!.Router.NavigateBack.Execute(Unit.Default)
+        );
     }
-
-    [ObservableProperty]
-    public ITest _data = null!;
-
-    private ICommand GoBackCommand { get; }
-    public delegate void GoBackDelegate();
-    public GoBackDelegate GoBack { get; set; } = null!;
-
-    public void OnGoBack() => GoBack.Invoke();
-
-    private ICommand GoTestCommand { get; }
-    public delegate void GoTestDelegate(ITest data);
-    public GoTestDelegate GoTest { get; set; } = null!;
-
-    public void OnGoTest() => GoTest.Invoke(Data);
 }

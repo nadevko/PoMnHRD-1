@@ -9,8 +9,8 @@
   <Design.DataContext>
     <vm:Question />
   </Design.DataContext>
-  <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
-    <TextBlock FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiLight" Text="{Binding Current.Text}" />
+  <!-- <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
+    <TextBlock FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiLight" Text="{Binding Current.Text}" /> -->
     <!-- <ItemsControl ItemsSource="{Binding Current.Answers}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
@@ -18,5 +18,5 @@
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl> -->
-  </StackPanel>
+  <!-- </StackPanel> -->
 </UserControl>

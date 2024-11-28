@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace PMnHRD1.App.Models;
 
@@ -27,23 +26,21 @@ public partial class TestCosts : ITest
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    private partial class EnumeratorCosts : ObservableObject, IEnumerator<IQuestion>
+    private class EnumeratorCosts : IEnumerator<IQuestion>
     {
+        private readonly List<QuestionCosts> _list;
+        private Stack<IQuestion> _stack;
+        private readonly Random _random = new();
+        private IQuestion? _current;
+
         public EnumeratorCosts(List<QuestionCosts> list)
         {
             _list = list;
-            _stack = null!;
+            _stack = new Stack<IQuestion>();
             Reset();
-            Current = null!;
-            MoveNext();
         }
 
-        private readonly List<QuestionCosts> _list;
-        private Stack<IQuestion> _stack;
-        private readonly Random random = new();
-
-        [ObservableProperty]
-        private IQuestion _current;
+        public IQuestion Current => _current!;
 
         object IEnumerator.Current => Current;
 
@@ -53,11 +50,12 @@ public partial class TestCosts : ITest
         {
             if (_stack.Count == 0)
                 return false;
-            Current = _stack.Pop();
+
+            _current = _stack.Pop();
             return true;
         }
 
-        public void Reset() => _stack = new Stack<IQuestion>(_list.OrderBy(_ => random.Next()));
+        public void Reset() => _stack = new Stack<IQuestion>(_list.OrderBy(_ => _random.Next()));
     }
 }
 

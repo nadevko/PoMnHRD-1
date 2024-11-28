@@ -10,7 +10,7 @@
   <Design.DataContext>
     <vm:Test />
   </Design.DataContext>
-  <StackPanel Orientation="Vertical">
+  <!-- <StackPanel Orientation="Vertical">
     <Border BorderBrush="Black" BorderThickness="0,0,0,2">
       <DockPanel>
 
@@ -58,5 +58,5 @@
         </Button>
       </StackPanel>
     </Grid>
-  </StackPanel>
+  </StackPanel> -->
 </UserControl>

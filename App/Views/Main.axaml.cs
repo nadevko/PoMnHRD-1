@@ -1,12 +1,14 @@
-using Avalonia.Controls;
-using PMnHRD1.App.Services;
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace PMnHRD1.App.Views;
 
-public partial class Main : Window
+public partial class Main : ReactiveWindow<ViewModels.Main>
 {
     public Main()
     {
-        InitializeComponent();
+        this.WhenActivated(disposables => { });
+        AvaloniaXamlLoader.Load(this);
     }
 }

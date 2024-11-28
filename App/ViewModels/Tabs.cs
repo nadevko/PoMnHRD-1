@@ -1,22 +1,26 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
+using System.Reactive;
 using PMnHRD1.App.Models;
-using PMnHRD1.App.Services;
+using ReactiveUI;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Tabs : ViewModel
+public partial class Tabs : ReactiveObject, IRoutableViewModel
 {
-    // public Tabs()
-    // {
-    //     GoTestCommand = new RelayCommand(OnGoTest);
-    // }
+    public IScreen HostScreen { get; }
+    public string UrlPathSegment { get; } = "/";
+    public ReactiveCommand<Unit, IRoutableViewModel> GoTest { get; }
 
-    // public ICommand GoTestCommand { get; }
-    // public delegate void GoTestDelegate();
-    // public GoTestDelegate GoTest { get; set; }= null!;
-    // public void OnGoTest() => GoTest.Invoke();
+    public Tabs(IScreen screen)
+    {
+        HostScreen = screen;
+        // GoTest = ReactiveCommand.CreateFromObservable(
+        //     () => HostScreen!.Router.Navigate.Execute(new Test(HostScreen))
+        // );
+        // GoTest = ReactiveCommand.CreateFromObservable<ITest>(test =>
+        //     HostScreen!.Router.Navigate.Execute(new Test(HostScreen, test))
+        // );
+    }
 
-    public ObservableCollection<Suite> Suites { get; set; } = Data.Instance.Suites;
+    public ObservableCollection<Suite> Suites { get; set; } = Services.Data.Instance.Suites;
 }

@@ -12,10 +12,7 @@ public sealed class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            BindingPlugins.DataValidators.RemoveAt(0);
             desktop.MainWindow = new Views.Main { DataContext = new ViewModels.Main() };
-        }
         base.OnFrameworkInitializationCompleted();
     }
 }
