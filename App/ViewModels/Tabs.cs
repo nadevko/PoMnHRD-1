@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Reactive;
 using PMnHRD1.App.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PMnHRD1.App.ViewModels;
 
@@ -22,5 +23,6 @@ public partial class Tabs : ReactiveObject, IRoutableViewModel
         // );
     }
 
-    public ObservableCollection<Suite> Suites { get; set; } = Services.Data.Instance.Suites;
+    public ObservableCollection<Suite> Suites { get; } =
+        Locator.Current.GetService<Services.IData>()!.Suites;
 }

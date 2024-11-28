@@ -9,13 +9,11 @@ using PMnHRD1.App.Models;
 
 namespace PMnHRD1.App.Services;
 
-public class Data
+public class Data : IData
 {
-    private static Data? _instance;
-    public static Data Instance => _instance ??= new Data();
     public ObservableCollection<Suite> Suites { get; private set; }
 
-    private Data() => Suites = new(LoadDirectory<Suite>().OrderBy(x => x.Id));
+    public Data() => Suites = new(LoadDirectory<Suite>().OrderBy(x => x.Id));
 
     public static string GetPropertyName(string property) =>
         Options.PropertyNamingPolicy == null
