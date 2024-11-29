@@ -10,12 +10,12 @@
   <Design.DataContext>
     <vm:Test />
   </Design.DataContext>
-  <!-- <StackPanel Orientation="Vertical">
+  <StackPanel Orientation="Vertical">
     <Border BorderBrush="Black" BorderThickness="0,0,0,2">
       <DockPanel>
 
         <TextBlock TextWrapping="Wrap" Text="{Binding Data.Name}" FontSize="36" FontWeight="SemiLight" Margin="16" VerticalAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
-        <Button Width="40" Height="40" Margin="16" Background="{Binding $parent.Background}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding OnGoBack}">
+        <Button Width="40" Height="40" Margin="16" Background="{Binding $parent.Background}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding GoBack}">
           <Button.Content>
             <PathIcon Data="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" Foreground="Black" Width="24" Height="24"/>
           </Button.Content>
@@ -40,7 +40,7 @@
         </ScrollViewer>
       </StackPanel>
       <StackPanel Grid.Row="1" Orientation="Horizontal">
-        <Button Margin="4,16" Background="{Binding $parent.Background}" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding OnGoTest}">
+        <Button Margin="4,16" Background="{Binding $parent.Background}" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding GoQuestion}" CommandParameter="{Binding Data}">
           <Button.Content>
             <StackPanel Orientation="Horizontal">
               <PathIcon Data="M8,5.14V19.14L19,12.14L8,5.14Z" VerticalAlignment="Center" Foreground="Black" Width="24" Height="24"/>
@@ -48,7 +48,7 @@
             </StackPanel>
           </Button.Content>
         </Button>
-        <Button Margin="4,16" Background="{Binding $parent.Background}" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding OnGoBack}">
+        <Button Margin="4,16" Background="{Binding $parent.Background}" BorderThickness="1" BorderBrush="Black" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding GoBack}">
           <Button.Content>
             <StackPanel Orientation="Horizontal">
               <PathIcon Data="M2 12C2 16.97 6.03 21 11 21C13.39 21 15.68 20.06 17.4 18.4L15.9 16.9C14.63 18.25 12.86 19 11 19C4.76 19 1.64 11.46 6.05 7.05C10.46 2.64 18 5.77 18 12H15L19 16H19.1L23 12H20C20 7.03 15.97 3 11 3C6.03 3 2 7.03 2 12Z" VerticalAlignment="Center" Foreground="Black" Width="24" Height="24"/>
@@ -58,5 +58,5 @@
         </Button>
       </StackPanel>
     </Grid>
-  </StackPanel> -->
+  </StackPanel>
 </UserControl>

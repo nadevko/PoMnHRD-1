@@ -22,22 +22,24 @@ public partial class TestCosts : ITest
     }
     private List<QuestionCosts> _questionCosts = [];
 
-    public IEnumerator<IQuestion> GetEnumerator() => new EnumeratorCosts(_questionCosts);
+    public IEnumerator<IQuestion> GetEnumerator() => new EnumeratorCosts(this);
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-    private class EnumeratorCosts : IEnumerator<IQuestion>
+    private class EnumeratorCosts : IIterator
     {
-        private readonly List<QuestionCosts> _list;
-        private Stack<IQuestion> _stack;
+        private readonly TestCosts _test;
+        private Stack<QuestionCosts> _stack;
         private readonly Random _random = new();
-        private IQuestion? _current;
+        private QuestionCosts? _current;
+        private int sum;
 
-        public EnumeratorCosts(List<QuestionCosts> list)
+        public EnumeratorCosts(TestCosts test)
         {
-            _list = list;
-            _stack = new Stack<IQuestion>();
+            _test = test;
+            _stack = new Stack<QuestionCosts>();
             Reset();
+            MoveNext();
         }
 
         public IQuestion Current => _current!;
@@ -55,7 +57,27 @@ public partial class TestCosts : ITest
             return true;
         }
 
-        public void Reset() => _stack = new Stack<IQuestion>(_list.OrderBy(_ => _random.Next()));
+        public void Reset() =>
+            _stack = new Stack<QuestionCosts>(_test._questionCosts.OrderBy(_ => _random.Next()));
+
+        public IResult? MoveNext(int answer)
+        {
+            sum += _current!.Costs![answer];
+            return MoveNext() ? null : Finish();
+        }
+
+        public IResult Finish()
+        {
+            ResultCosts? result = null;
+            foreach (var i in _test.Results)
+            {
+                if (i.From <= sum && sum < i.To)
+                    result = i;
+            }
+            if (result == null)
+                throw new Exception($"There are no results for {sum}");
+            return new ResultCosts() { Text = result.Text };
+        }
     }
 }
 

@@ -2,21 +2,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ia="clr-namespace:Avalonia.Interactivity;assembly=Avalonia.Interactivity"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:v="using:PMnHRD1.App.Views"
              xmlns:vm="using:PMnHRD1.App.ViewModels"
+             xmlns:m="using:PMnHRD1.App.Models"
              x:DataType="vm:Question"
              x:Class="PMnHRD1.App.Views.Question">
   <Design.DataContext>
     <vm:Question />
   </Design.DataContext>
-  <!-- <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
-    <TextBlock FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiLight" Text="{Binding Current.Text}" /> -->
-    <!-- <ItemsControl ItemsSource="{Binding Current.Answers}">
+  <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
+    <TextBlock FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiLight" Text="{Binding Current.Text}" />
+    <ItemsControl ItemsSource="{Binding Current.Answers}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <RadioButton Content="{Binding}" IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+          <RadioButton Content="{Binding}" GroupName="Answer" Command="{Binding $parent[v:Question].((vm:Question)DataContext).ChangeQuestion}" CommandParameter="{Binding}" />
         </DataTemplate>
       </ItemsControl.ItemTemplate>
-    </ItemsControl> -->
-  <!-- </StackPanel> -->
+    </ItemsControl>
+  </StackPanel>
 </UserControl>
