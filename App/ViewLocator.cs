@@ -11,6 +11,7 @@ public class ViewLocator : IViewLocator
             ViewModels.Tabs context => new Views.Tabs { DataContext = context },
             ViewModels.Test context => new Views.Test { DataContext = context },
             ViewModels.Question context => new Views.Question { DataContext = context },
+            ViewModels.Result context => new Views.Result { DataContext = context },
             _ => throw new ArgumentOutOfRangeException(nameof(viewModel)),
         };
 }

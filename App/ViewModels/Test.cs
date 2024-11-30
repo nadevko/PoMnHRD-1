@@ -4,10 +4,10 @@ using ReactiveUI;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Test : ReactiveObject, IRoutableViewModel
+public class Test : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
-    public string UrlPathSegment { get; } = "test/";
+    public string UrlPathSegment { get; } = "test";
     public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
     public ReactiveCommand<ITest, IRoutableViewModel> GoQuestion { get; }
 

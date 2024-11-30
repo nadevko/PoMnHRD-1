@@ -1,8 +1,14 @@
-using Avalonia.Controls;
+using Avalonia.Markup.Xaml;
+using Avalonia.ReactiveUI;
+using ReactiveUI;
 
 namespace PMnHRD1.App.Views;
 
-public partial class Result : UserControl
+public partial class Result : ReactiveUserControl<ViewModels.Result>
 {
-    public Result() => InitializeComponent();
+    public Result()
+    {
+        this.WhenActivated(disposables => { });
+        AvaloniaXamlLoader.Load(this);
+    }
 }

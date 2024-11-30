@@ -2,7 +2,7 @@ using ReactiveUI;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Main : ReactiveObject, IScreen
+public class Main : ReactiveObject, IScreen
 {
     public RoutingState Router { get; } = new RoutingState();
 

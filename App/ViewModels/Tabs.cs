@@ -5,10 +5,10 @@ using Splat;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Tabs : ReactiveObject, IRoutableViewModel
+public class Tabs : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
-    public string UrlPathSegment { get; } = "/";
+    public string UrlPathSegment { get; } = "";
     public ReactiveCommand<ITest, IRoutableViewModel> GoTest { get; }
 
     public Tabs(IScreen screen)

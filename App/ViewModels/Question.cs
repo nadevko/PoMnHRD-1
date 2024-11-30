@@ -1,33 +1,49 @@
-using System.Collections.Generic;
+using System;
+using System.Reactive.Linq;
+using DynamicData;
 using PMnHRD1.App.Models;
 using ReactiveUI;
 
 namespace PMnHRD1.App.ViewModels;
 
-public partial class Question : ReactiveObject, IRoutableViewModel
+public class Question : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
-    public string UrlPathSegment { get; set; } = "";
+    public string UrlPathSegment { get; set; } = "1";
 
-    // public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
-    public ReactiveCommand<IQuestion, bool> ChangeQuestion { get; }
+    public ReactiveCommand<string, IResult?> ChangeQuestion { get; }
+    public ReactiveCommand<IResult, IRoutableViewModel> GoResult { get; }
 
     public Question(IScreen screen, ITest test)
     {
         HostScreen = screen;
-        _enumerator = test.GetEnumerator();
+        _enumerator = test.GetIterator();
         Current = _enumerator.Current;
-        ChangeQuestion = ReactiveCommand.Create<IQuestion, bool>(question =>
+        ChangeQuestion = ReactiveCommand.Create<string, IResult?>(question =>
         {
-            return _enumerator.MoveNext();
+            var result = _enumerator.MoveNext(Current.Answers!.IndexOf(question));
+            Current = _enumerator.Current;
+            return result;
         });
+        GoResult = ReactiveCommand.CreateFromObservable<IResult, IRoutableViewModel>(result =>
+        {
+            UrlPathSegment = "result";
+            return HostScreen.Router.Navigate.Execute(new Result(HostScreen, result));
+        });
+        ChangeQuestion.Where(result => result != null).InvokeCommand(GoResult!);
     }
 
-    private IEnumerator<IQuestion> _enumerator;
+    private IIterator _enumerator;
+    private int _n = 1;
     private IQuestion _current = null!;
     public IQuestion Current
     {
         get => _current;
-        set => this.RaiseAndSetIfChanged(ref _current, value);
+        set
+        {
+            _n++;
+            UrlPathSegment = _n.ToString();
+            this.RaiseAndSetIfChanged(ref _current, value);
+        }
     }
 }

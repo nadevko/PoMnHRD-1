@@ -26,6 +26,8 @@ public partial class TestCosts : ITest
 
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+    public IIterator GetIterator() => new EnumeratorCosts(this);
+
     private class EnumeratorCosts : IIterator
     {
         private readonly TestCosts _test;
