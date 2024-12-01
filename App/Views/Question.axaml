@@ -12,14 +12,89 @@
   <Design.DataContext>
     <vm:Question />
   </Design.DataContext>
-  <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
-    <TextBlock FontSize="30" TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiLight" Text="{Binding Current.Text}" />
-    <ItemsControl ItemsSource="{Binding Current.Answers}">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <RadioButton Content="{Binding}" GroupName="Answer" Command="{Binding $parent[v:Question].((vm:Question)DataContext).ChangeQuestion}" CommandParameter="{Binding}" />
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-  </StackPanel>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50"/>
+      <RowDefinition Height="3*"/>
+      <RowDefinition Height="5*"/>
+      <RowDefinition Height="80"/>
+    </Grid.RowDefinitions>
+
+    <Border Background="LightGray" BorderBrush="Black" BorderThickness="0,0,0,1" Grid.Row="0">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Content="Home" HorizontalAlignment="Left" Margin="10"
+                Command="{Binding GoHome}"/>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+          <Button Content="Previous" Margin="5,0" Command="{Binding GoPrevious}"/>
+          <Button Content="Next" Margin="5,0" Command="{Binding GoNext}"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Border Grid.Row="1" Padding="40,10">
+      <TextBlock Text="{Binding Current.Text}"
+                 FontSize="20"
+                 TextAlignment="Left"
+                 TextWrapping="Wrap"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Left"
+                 MaxWidth="700"/>
+    </Border>
+
+    <Border Grid.Row="2" Padding="40,10">
+      <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Current.Answers}">
+          <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+              <StackPanel Orientation="Vertical" HorizontalAlignment="Left"/>
+            </ItemsPanelTemplate>
+          </ItemsControl.ItemsPanel>
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <RadioButton Content="{Binding}"
+                           GroupName="Answer"
+                           Command="{Binding $parent[v:Question].((vm:Question)DataContext).ChooseAnswer}"
+                           CommandParameter="{Binding}"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
+                           Margin="0,10,0,0">
+                <RadioButton.ContentTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding}"
+                               TextWrapping="Wrap"
+                               MaxWidth="700"/>
+                  </DataTemplate>
+                </RadioButton.ContentTemplate>
+              </RadioButton>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Border>
+
+    <Border Background="LightGray" Grid.Row="3" Padding="10">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Current.Comment}"
+                   FontStyle="Italic"
+                   TextWrapping="Wrap"
+                   MaxWidth="700"
+                   Visibility="{Binding IsCommentVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
+          <TextBlock Text="Осталось времени: {Binding RemainingTime}" Margin="10,0"/>
+          <TextBlock Text="Вопрос {Binding CurrentQuestionIndex} из {Binding TotalQuestions}" Margin="10,0"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+  </Grid>
 </UserControl>
