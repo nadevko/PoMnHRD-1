@@ -1,15 +1,13 @@
 using PMnHRD1.App.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PMnHRD1.App.ViewModels;
 
 public class Result : ReactiveObject, IRoutableViewModel
 {
     public string? UrlPathSegment { get; } = "resultId";
-    public IScreen HostScreen { get; set; }
+    public IScreen HostScreen => Locator.Current.GetService<Services.INavigate>()!.Screen;
 
-    public Result(IScreen screen, IResult result)
-    {
-        HostScreen = screen;
-    }
+    public Result(IResult result) { }
 }

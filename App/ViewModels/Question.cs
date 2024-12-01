@@ -3,12 +3,13 @@ using System.Reactive;
 using DynamicData;
 using PMnHRD1.App.Models;
 using ReactiveUI;
+using Splat;
 
 namespace PMnHRD1.App.ViewModels;
 
 public class Question : ReactiveObject, IRoutableViewModel
 {
-    public IScreen HostScreen { get; }
+    public IScreen HostScreen => Locator.Current.GetService<Services.INavigate>()!.Screen;
     public string UrlPathSegment { get; set; } = "1";
 
     public ReactiveCommand<string, IResult?> ChooseAnswer { get; }
@@ -17,9 +18,8 @@ public class Question : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, IRoutableViewModel?> GoNext { get; }
     public ReactiveCommand<Unit, IRoutableViewModel?> GoPrevious { get; }
 
-    public Question(IScreen screen, ITest test)
+    public Question(ITest test)
     {
-        HostScreen = screen;
         _enumerator = test.GetIterator();
         Current = _enumerator.Current;
         ChooseAnswer = ReactiveCommand.Create<string, IResult?>(question =>
@@ -31,7 +31,7 @@ public class Question : ReactiveObject, IRoutableViewModel
         GoResult = ReactiveCommand.CreateFromObservable<IResult, IRoutableViewModel>(result =>
         {
             UrlPathSegment = "result";
-            return HostScreen.Router.Navigate.Execute(new Result(HostScreen, result));
+            return HostScreen.Router.Navigate.Execute(new Result(result));
         });
         ChooseAnswer.WhereNotNull().InvokeCommand(GoResult!);
         GoHome = ReactiveCommand.CreateFromObservable<Unit, IRoutableViewModel?>(result =>

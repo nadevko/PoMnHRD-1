@@ -78,7 +78,7 @@
       </ScrollViewer>
     </Border>
 
-    <Border Background="LightGray" Grid.Row="3" Padding="10">
+    <!-- <Border Background="LightGray" Grid.Row="3" Padding="10">
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="*"/>
@@ -95,6 +95,6 @@
           <TextBlock Text="Вопрос {Binding CurrentQuestionIndex} из {Binding TotalQuestions}" Margin="10,0"/>
         </StackPanel>
       </Grid>
-    </Border>
+    </Border> -->
   </Grid>
 </UserControl>
