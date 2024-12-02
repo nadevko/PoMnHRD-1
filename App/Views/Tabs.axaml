@@ -11,53 +11,79 @@
   <Design.DataContext>
     <vm:Tabs />
   </Design.DataContext>
-
   <TabControl>
+
     <TabItem Header="Suites">
       <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <ItemsControl ItemsSource="{Binding Suites}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate x:DataType="m:Suite">
 
-      <ItemsControl ItemsSource="{Binding Suites}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate x:DataType="m:Suite">
+              <StackPanel Orientation="Vertical" Margin="8">
 
-            <StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="4">
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="4">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="4">
+                  <TextBlock Text="{Binding Id}" FontSize="22" Margin="16,8" VerticalAlignment="Center"/>
+                  <Border Background="{DynamicResource SystemAccentColor}" Width="2" Margin="5"/>
                   <TextBlock Text="{Binding Name}" FontSize="22" FontWeight="Bold" Margin="16,8" VerticalAlignment="Center"/>
-                  <Border Background="Black" Width="2" Margin="5"/>
-                  <TextBlock Text="{Binding Description}" FontSize="16" Margin="16,8" VerticalAlignment="Center"/>
                 </StackPanel>
 
+                <Grid Margin="4">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60*"/>
+                    <ColumnDefinition Width="40*"/>
+                  </Grid.ColumnDefinitions>
 
-              <ItemsControl ItemsSource="{Binding Tests}" Margin="4">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate x:DataType="m:ITest">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
 
-                    <Button Command="{Binding $parent[v:Tabs].((vm:Tabs)DataContext).GoTest}" CommandParameter="{Binding}" Margin="4">
-                      <Button.Content>
+                  <TextBlock Text="{Binding Description}"
+                             TextWrapping="Wrap"
+                             FontSize="18"
+                             Margin="16,8"
+                             Grid.Column="0"
+                             Grid.Row="0"/>
 
-                        <DockPanel Margin="4">
-                          <TextBlock DockPanel.Dock="Left" Text="{Binding Name}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                          <TextBlock DockPanel.Dock="Right" Text="{Binding Questions.Count}" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                        </DockPanel>
+                  <Button Content="Go to Suite"
+                          Command="{Binding $parent[v:Tabs].((vm:Tabs)DataContext).GoSuite}"
+                          CommandParameter="{Binding}"
+                          Margin="16,8,16,16"
+                          Background="{DynamicResource SystemAccentColor}"
+                          Foreground="White"
+                          FontWeight="Bold"
+                          Padding="10,5"
+                          CornerRadius="5"
+                          FontSize="17"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          Grid.Column="0"
+                          Grid.Row="1"/>
 
-                      </Button.Content>
-                    </Button>
+                  <StackPanel Grid.Column="1" Margin="16,8">
+                    <TextBlock Text="Externals" FontSize="19" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <ItemsControl ItemsSource="{Binding Externals}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding}" Margin="0,8,0,8"/>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                  </StackPanel>
+                </Grid>
+              </StackPanel>
 
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-
-            </StackPanel>
-
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
       </ScrollViewer>
     </TabItem>
+
     <TabItem Header="Stats">
     </TabItem>
+
     <TabItem Header="Achievements">
     </TabItem>
+
   </TabControl>
 </UserControl>
