@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DynamicData;
 
 namespace PMnHRD1.App.Models;
 
@@ -30,56 +31,84 @@ public partial class TestCosts : ITest
 
     private class EnumeratorCosts : IIterator
     {
-        private readonly TestCosts _test;
-        private Stack<QuestionCosts> _stack;
         private readonly Random _random = new();
-        private QuestionCosts? _current;
-        private int sum;
+        private readonly TestCosts _test;
+
+        private List<QuestionCosts> _list;
+
+        private int index = 0;
+        private int?[] results;
 
         public EnumeratorCosts(TestCosts test)
         {
             _test = test;
-            _stack = new Stack<QuestionCosts>();
-            Reset();
-            MoveNext();
+            _list = new(_test._questionCosts.OrderBy(_ => _random.Next()));
+            results = new int?[_list.Count];
+            for (int i = 0; i < results.Length; i++)
+                results[i] = null;
+            _current = _list[index];
         }
 
-        public IQuestion Current => _current!;
-
-        object IEnumerator.Current => Current;
+        private QuestionCosts _current;
+        public IQuestion Current => _current;
+        object IEnumerator.Current => _current;
 
         public void Dispose() { }
 
+        public void Reset()
+        {
+            _list = [.. _list.OrderBy(_ => _random.Next())];
+            results = new int?[_list.Count];
+            index = 0;
+        }
+
         public bool MoveNext()
         {
-            if (_stack.Count == 0)
+            if (++index == _list.Count)
+            {
+                index--;
                 return false;
-
-            _current = _stack.Pop();
+            }
+            _current = _list[index];
             return true;
         }
 
-        public void Reset() =>
-            _stack = new Stack<QuestionCosts>(_test._questionCosts.OrderBy(_ => _random.Next()));
-
-        public IResult? MoveNext(int answer)
+        public bool MovePrevious()
         {
-            sum += _current!.Costs![answer];
-            return MoveNext() ? null : Finish();
+            if (--index == -1)
+            {
+                index++;
+                return false;
+            }
+            _current = _list[index];
+            return true;
         }
 
-        public IResult Finish()
+        public IResult GetResult()
         {
             ResultCosts? result = null;
+            int? sum = results.Sum();
             foreach (var i in _test.Results)
-            {
                 if (i.From <= sum && sum < i.To)
                     result = i;
-            }
             if (result == null)
                 throw new Exception($"There are no results for {sum}");
             return new ResultCosts() { Text = result.Text };
         }
+
+        public int SetAnswer(string answer)
+        {
+            var answerId = (_current.Answers ?? _test.Answers).IndexOf(answer);
+            if (answerId == -1)
+                return -1;
+            results[index] = (_current.Costs ?? _test.Costs)[answerId];
+            return answerId;
+        }
+
+        public string? GetAnswer() =>
+            results[index] == null
+                ? null
+                : (_current.Answers ?? _test.Answers)![(int)results[index]!];
     }
 }
 

@@ -4,6 +4,8 @@ namespace PMnHRD1.App.Models;
 
 public interface IIterator : IEnumerator<IQuestion>
 {
-    IResult? MoveNext(int answer);
-    IResult Finish();
+    bool MovePrevious();
+    int SetAnswer(string answer);
+    string? GetAnswer();
+    IResult GetResult();
 }
