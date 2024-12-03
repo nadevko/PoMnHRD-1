@@ -4,9 +4,9 @@ using ReactiveUI;
 
 namespace PMnHRD1.App.Views;
 
-public partial class Test : ReactiveUserControl<ViewModels.Test>
+public partial class Suite : ReactiveUserControl<ViewModels.Suite>
 {
-    public Test()
+    public Suite()
     {
         this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);

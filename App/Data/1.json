@@ -1,15 +1,23 @@
 {
   "name": "Делегирование полномочий и принятие решений",
-  "description": "1 тема",
+  "description": "Totam temporibus accusantium molestiae et debitis provident excepturi in. Quibusdam qui cumque perspiciatis quod sint. Dolore quasi quia impedit quam labore. Eos expedita consequatur quos.",
   "id": 1,
-  "externals": [],
+  "externals": [
+    "http://lively-dame.com",
+    "https://disfigured-foodstuffs.org",
+    "https://flickering-hazel.biz"
+  ],
   "tests": [
     {
       "type": "Costs",
       "name": "Сущность и роль решений в процессе управления",
-      "description": "1 тест",
+      "description": "Aut sed recusandae qui incidunt. Eveniet et commodi dolorum omnis corrupti voluptatem. Quam odit illo et quibusdam repellendus id sed. Assumenda recusandae nam distinctio eius impedit velit ullam.",
       "id": 1,
-      "externals": [],
+      "externals": [
+        "https://witty-sorbet.net",
+        "http://gigantic-clef.info",
+        "http://lean-habit.name"
+      ],
       "costs": [-2, -1, 1, 2],
       "answers": [
         "First answers has first cost",
@@ -203,9 +211,13 @@
     {
       "type": "Costs",
       "name": "тест 2",
-      "description": "",
-      "id": 1,
-      "externals": [],
+      "description": "Ullam sequi velit exercitationem voluptas nihil illum enim aliquid. Qui voluptate eligendi exercitationem non voluptas ea magnam. Sapiente esse numquam labore magnam. Sit voluptatem harum sunt.",
+      "id": 2,
+      "externals": [
+        "https://witty-sorbet.net",
+        "http://gigantic-clef.info",
+        "http://lean-habit.name"
+      ],
       "costs": [-2, -1, 1, 2],
       "answers": [
         "First answers has first cost",
@@ -321,9 +333,13 @@
     {
       "type": "Costs",
       "name": "тест 3",
-      "description": "",
-      "id": 1,
-      "externals": [],
+      "description": "Ullam sequi velit exercitationem voluptas nihil illum enim aliquid. Qui voluptate eligendi exercitationem non voluptas ea magnam. Sapiente esse numquam labore magnam. Sit voluptatem harum sunt.",
+      "id": 3,
+      "externals": [
+        "https://witty-sorbet.net",
+        "http://gigantic-clef.info",
+        "http://lean-habit.name"
+      ],
       "costs": [-2, -1, 1, 2],
       "answers": [
         "First answers has first cost",

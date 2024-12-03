@@ -10,24 +10,24 @@ public class Tabs : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen => Locator.Current.GetService<Services.INavigate>()!.Screen;
     public string UrlPathSegment { get; } = "";
-    public ReactiveCommand<Suite, IRoutableViewModel> GoSuite { get; }
+    public ReactiveCommand<Models.Suite, IRoutableViewModel> GoSuite { get; }
 
     public Tabs()
     {
-        GoSuite = ReactiveCommand.CreateFromObservable<Suite, IRoutableViewModel>(suite =>
-            HostScreen.Router.Navigate.Execute(new Test(suite.Tests![0]))
+        GoSuite = ReactiveCommand.CreateFromObservable<Models.Suite, IRoutableViewModel>(suite =>
+            HostScreen.Router.Navigate.Execute(new Suite(suite))
         );
         // this.WhenAnyValue(x => x.SelectedTest).WhereNotNull().InvokeCommand(GoTest);
     }
 
-    private Test? _selectedTest;
+    private Suite? _selectedTest;
 
-    public Test? SelectedTest
+    public Suite? SelectedTest
     {
         get => _selectedTest;
         set => this.RaiseAndSetIfChanged(ref _selectedTest, value);
     }
 
-    public ObservableCollection<Suite> Suites { get; } =
+    public ObservableCollection<Models.Suite> Suites { get; } =
         Locator.Current.GetService<Services.IData>()!.Suites;
 }
