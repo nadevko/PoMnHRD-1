@@ -78,7 +78,7 @@
 
     <Border Grid.Row="2" Padding="40,10">
       <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding Current.Answers}">
+        <ItemsControl ItemsSource="{Binding Answers}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
               <StackPanel Orientation="Vertical" HorizontalAlignment="Left"/>

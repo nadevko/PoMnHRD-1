@@ -117,6 +117,8 @@ public partial class TestCosts : ITest
             results[index] == null
                 ? null
                 : (_current.Answers ?? _test.Answers)![(int)results[index]!];
+
+        public string[] GetAnswers() => _current.Answers ?? _test.Answers;
     }
 }
 

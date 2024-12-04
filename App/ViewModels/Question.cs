@@ -104,8 +104,16 @@ public class Question : ReactiveObject, IRoutableViewModel
         set
         {
             UrlPathSegment = CurrentCount.ToString();
+            Answers = _enumerator.GetAnswers();
             this.RaiseAndSetIfChanged(ref _current, value);
         }
+    }
+
+    private string[] _answers = [];
+    public string[] Answers
+    {
+        get => _answers;
+        set => this.RaiseAndSetIfChanged(ref _answers, value);
     }
 
     private void Tick(object? sender, EventArgs e)
