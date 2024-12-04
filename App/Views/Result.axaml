@@ -1,11 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:vm="using:PMnHRD1.App.ViewModels"
-             x:DataType="vm:Result"
-             x:Class="PMnHRD1.App.Views.Result">
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+  xmlns:vm="using:PMnHRD1.App.ViewModels"
+  x:DataType="vm:Result"
+  x:Class="PMnHRD1.App.Views.Result">
   <Design.DataContext>
     <vm:Result />
   </Design.DataContext>
@@ -14,10 +14,15 @@
     <Border BorderBrush="{DynamicResource SystemAccentColor}" BorderThickness="0,0,0,2">
       <DockPanel>
 
-        <TextBlock TextWrapping="Wrap" Text="{Binding Current.Name}" FontSize="36" FontWeight="SemiLight" Margin="16" VerticalAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
-        <Button Width="40" Height="40" Margin="16" Background="{Binding $parent.Background}" VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right" Command="{Binding GoHome}">
+        <TextBlock TextWrapping="Wrap" Text="{Binding Current.Name}" FontSize="36"
+          FontWeight="SemiLight" Margin="16" VerticalAlignment="Center" DockPanel.Dock="Left"
+          HorizontalAlignment="Left" />
+        <Button Width="40" Height="40" Margin="16" Background="{Binding $parent.Background}"
+          VerticalAlignment="Center" DockPanel.Dock="Right" HorizontalAlignment="Right"
+          Command="{Binding GoHome}">
           <Button.Content>
-            <PathIcon Data="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" Width="24" Height="24"/>
+            <PathIcon Data="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+              Width="24" Height="24" />
           </Button.Content>
         </Button>
 
@@ -26,22 +31,22 @@
 
     <ScrollViewer Margin="20,0">
       <StackPanel>
-          <TextBlock Text="{Binding Current.Text}"
-                    FontSize="26"
-                    Padding="40"
-                    TextAlignment="Left"
-                    TextWrapping="Wrap"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Left"
-                    MaxWidth="700"/>
-          <TextBlock Text="{Binding Current.Time, StringFormat='Elapsed Time: {0:hh\\:mm\\:ss}'}"
-                    FontSize="18"
-                    Padding="40,4"
-                    Margin="0,5"/>
-          <TextBlock Text="{Binding Current.Date, StringFormat='Date: {0:yyyy.MM.dd}'}"
-                    FontSize="18"
-                    Padding="40,4"
-                    Margin="0,5"/>
+        <TextBlock Text="{Binding Current.Text}"
+          FontSize="26"
+          Padding="40"
+          TextAlignment="Left"
+          TextWrapping="Wrap"
+          VerticalAlignment="Center"
+          HorizontalAlignment="Left"
+          MaxWidth="700" />
+        <TextBlock Text="{Binding Current.Time, StringFormat='Elapsed Time: {0:hh\\:mm\\:ss}'}"
+          FontSize="18"
+          Padding="40,4"
+          Margin="0,5" />
+        <TextBlock Text="{Binding Current.Date, StringFormat='Date: {0:yyyy.MM.dd}'}"
+          FontSize="18"
+          Padding="40,4"
+          Margin="0,5" />
       </StackPanel>
     </ScrollViewer>
   </StackPanel>

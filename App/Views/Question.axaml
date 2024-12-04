@@ -1,79 +1,79 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:ia="clr-namespace:Avalonia.Interactivity;assembly=Avalonia.Interactivity"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             xmlns:v="using:PMnHRD1.App.Views"
-             xmlns:vm="using:PMnHRD1.App.ViewModels"
-             xmlns:m="using:PMnHRD1.App.Models"
-             x:DataType="vm:Question"
-             x:Class="PMnHRD1.App.Views.Question">
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:ia="clr-namespace:Avalonia.Interactivity;assembly=Avalonia.Interactivity"
+  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+  xmlns:v="using:PMnHRD1.App.Views"
+  xmlns:vm="using:PMnHRD1.App.ViewModels"
+  xmlns:m="using:PMnHRD1.App.Models"
+  x:DataType="vm:Question"
+  x:Class="PMnHRD1.App.Views.Question">
   <Design.DataContext>
     <vm:Question />
   </Design.DataContext>
 
   <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"/>
-      <RowDefinition Height="3*"/>
-      <RowDefinition Height="5*"/>
-      <RowDefinition Height="80"/>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="3*" />
+      <RowDefinition Height="5*" />
+      <RowDefinition Height="80" />
     </Grid.RowDefinitions>
 
     <Border BorderBrush="{DynamicResource SystemAccentColor}" BorderThickness="0,0,0,1">
       <Grid>
         <Grid.ColumnDefinitions>
-          <ColumnDefinition Width="Auto"/>
-          <ColumnDefinition Width="*"/>
-          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Button Content="Home"
-                Command="{Binding GoHome}"
-                Margin="8"
-                Background="{DynamicResource SystemAccentColor}"
-                Foreground="White"
-                FontWeight="Bold"
-                Padding="10,5"
-                CornerRadius="5"
-                FontSize="17"
-                HorizontalAlignment="Left"/>
+          Command="{Binding GoHome}"
+          Margin="8"
+          Background="{DynamicResource SystemAccentColor}"
+          Foreground="White"
+          FontWeight="Bold"
+          Padding="10,5"
+          CornerRadius="5"
+          FontSize="17"
+          HorizontalAlignment="Left" />
         <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
           <Button Content="Previous"
-                  Command="{Binding GoPrevious}"
-                  CommandParameter="{Binding $parent[v:Question]}"
-                  Margin="8"
-                  Background="{DynamicResource SystemAccentColor}"
-                  Foreground="White"
-                  FontWeight="Bold"
-                  Padding="10,5"
-                  CornerRadius="5"
-                  FontSize="17"
-                  HorizontalAlignment="Right"/>
+            Command="{Binding GoPrevious}"
+            CommandParameter="{Binding $parent[v:Question]}"
+            Margin="8"
+            Background="{DynamicResource SystemAccentColor}"
+            Foreground="White"
+            FontWeight="Bold"
+            Padding="10,5"
+            CornerRadius="5"
+            FontSize="17"
+            HorizontalAlignment="Right" />
           <Button Content="Next"
-                  Command="{Binding GoNext}"
-                  CommandParameter="{Binding $parent[v:Question]}"
-                  Margin="8"
-                  Background="{DynamicResource SystemAccentColor}"
-                  Foreground="White"
-                  FontWeight="Bold"
-                  Padding="10,5"
-                  CornerRadius="5"
-                  FontSize="17"
-                  HorizontalAlignment="Right"/>
+            Command="{Binding GoNext}"
+            CommandParameter="{Binding $parent[v:Question]}"
+            Margin="8"
+            Background="{DynamicResource SystemAccentColor}"
+            Foreground="White"
+            FontWeight="Bold"
+            Padding="10,5"
+            CornerRadius="5"
+            FontSize="17"
+            HorizontalAlignment="Right" />
         </StackPanel>
       </Grid>
     </Border>
 
     <ScrollViewer Grid.Row="1">
       <TextBlock Text="{Binding Current.Text}"
-                 FontSize="26"
-                 Padding="40,10"
-                 TextAlignment="Left"
-                 TextWrapping="Wrap"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Left"
-                 MaxWidth="700"/>
+        FontSize="26"
+        Padding="40,10"
+        TextAlignment="Left"
+        TextWrapping="Wrap"
+        VerticalAlignment="Center"
+        HorizontalAlignment="Left"
+        MaxWidth="700" />
     </ScrollViewer>
 
     <Border Grid.Row="2" Padding="40,10">
@@ -81,25 +81,25 @@
         <ItemsControl ItemsSource="{Binding Answers}">
           <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-              <StackPanel Orientation="Vertical" HorizontalAlignment="Left"/>
+              <StackPanel Orientation="Vertical" HorizontalAlignment="Left" />
             </ItemsPanelTemplate>
           </ItemsControl.ItemsPanel>
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <RadioButton Content="{Binding}"
-                           Name="{Binding}"
-                           GroupName="Answer"
-                           Command="{Binding $parent[v:Question].((vm:Question)DataContext).ChooseAnswer}"
-                           CommandParameter="{Binding}"
-                           HorizontalAlignment="Left"
-                           VerticalAlignment="Center"
-                           Margin="0,10,0,0">
+                Name="{Binding}"
+                GroupName="Answer"
+                Command="{Binding $parent[v:Question].((vm:Question)DataContext).ChooseAnswer}"
+                CommandParameter="{Binding}"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="0,10,0,0">
                 <RadioButton.ContentTemplate>
                   <DataTemplate>
                     <TextBlock Text="{Binding}"
-                               TextWrapping="Wrap"
-                               FontSize="20"
-                               MaxWidth="700"/>
+                      TextWrapping="Wrap"
+                      FontSize="20"
+                      MaxWidth="700" />
                   </DataTemplate>
                 </RadioButton.ContentTemplate>
               </RadioButton>
@@ -112,14 +112,14 @@
     <Border Grid.Row="3" Padding="10">
       <Grid>
         <Grid.RowDefinitions>
-          <RowDefinition Height="*"/>
-          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10">
-          <TextBlock FontSize="20" Text="{Binding CurrentCount}" Margin="10,0,0,0"/>
-          <TextBlock FontSize="20" Text="/"/>
-          <TextBlock FontSize="20" Text="{Binding QuestionsCount}" Margin="0,0,10,0"/>
-          <TextBlock FontSize="20" Text="{Binding Time}" Margin="10,0"/>
+          <TextBlock FontSize="20" Text="{Binding CurrentCount}" Margin="10,0,0,0" />
+          <TextBlock FontSize="20" Text="/" />
+          <TextBlock FontSize="20" Text="{Binding QuestionsCount}" Margin="0,0,10,0" />
+          <TextBlock FontSize="20" Text="{Binding Time}" Margin="10,0" />
         </StackPanel>
       </Grid>
     </Border>
