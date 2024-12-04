@@ -98,6 +98,7 @@ public class TestCostsConverter : JsonConverter<TestCosts>
         {
             Name = Data.GetProperty<string>(root, "Name"),
             Description = Data.GetProperty<string>(root, "Description"),
+            Id = Data.GetProperty<int>(root, "Id"),
             Externals = Data.GetProperty(root, "Externals", new List<string>())!,
             Answers = Data.GetProperty<string[]>(root, "Answers"),
             Costs = Data.GetProperty<int[]>(root, "Costs"),

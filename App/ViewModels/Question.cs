@@ -65,7 +65,9 @@ public class Question : ReactiveObject, IRoutableViewModel
         {
             if (!_enumerator.MoveNext())
             {
-                HostScreen.Router.Navigate.Execute(new Result(_enumerator.GetResult()));
+                HostScreen.Router.Navigate.Execute(
+                    new Result(_enumerator.GetResult(_timeSpan, test.Name, test.Id))
+                );
                 return new Unit();
             }
             CurrentCount++;

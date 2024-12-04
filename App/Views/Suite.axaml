@@ -19,7 +19,7 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Border BorderBrush="{DynamicResource SystemAccentColor}" BorderThickness="0,0,0,2" Grid.Row="0">
+    <Border BorderBrush="{DynamicResource SystemAccentColor}" BorderThickness="0,0,0,2">
       <DockPanel>
 
         <TextBlock TextWrapping="Wrap" Text="{Binding Data.Name}" FontSize="36" FontWeight="SemiLight" Margin="16" VerticalAlignment="Center" DockPanel.Dock="Left" HorizontalAlignment="Left"/>
@@ -66,7 +66,7 @@
           <DataTemplate x:DataType="m:ITest">
 
             <Border BorderBrush="{DynamicResource SystemAccentColor}"
-                    BorderThickness="2,0"
+                    BorderThickness="2,0,0,0"
                     CornerRadius="10"
                     Margin="8"
                     Padding="8">

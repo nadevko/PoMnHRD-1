@@ -8,6 +8,7 @@ public interface ITest : IEnumerable<IQuestion>
     string Description { get; set; }
     List<string> Externals { get; set; }
     List<IQuestion> Questions { get; set; }
+    int Id { get; set; }
 
     IIterator GetIterator();
 }

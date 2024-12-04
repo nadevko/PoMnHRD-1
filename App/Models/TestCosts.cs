@@ -10,6 +10,7 @@ public partial class TestCosts : ITest
 {
     public required string Name { get; set; }
     public required string Description { get; set; }
+    public required int Id { get; set; }
     public required List<string> Externals { get; set; }
 
     public Stack<ResultCosts> Results { get; set; } = [];
@@ -84,7 +85,7 @@ public partial class TestCosts : ITest
             return true;
         }
 
-        public IResult GetResult()
+        public IResult GetResult(TimeSpan time, string name, int id)
         {
             ResultCosts? result = null;
             int? sum = results.Sum();
@@ -93,7 +94,14 @@ public partial class TestCosts : ITest
                     result = i;
             if (result == null)
                 throw new Exception($"There are no results for {sum}");
-            return new ResultCosts() { Text = result.Text };
+            return new ResultCosts()
+            {
+                Text = result.Text,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = time,
+                Name = name,
+                Id = id,
+            };
         }
 
         public int SetAnswer(string answer)
@@ -124,4 +132,8 @@ public class ResultCosts : IResult
     public required string Text { get; set; }
     public int From { get; set; }
     public int To { get; set; }
+    public TimeSpan Time { get; set; }
+    public DateOnly Date { get; set; }
+    public int Id { get; set; }
+    public string? Name { get; set; }
 }

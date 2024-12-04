@@ -86,8 +86,5 @@
     <TabItem Header="Stats">
     </TabItem>
 
-    <TabItem Header="Achievements">
-    </TabItem>
-
   </TabControl>
 </UserControl>
