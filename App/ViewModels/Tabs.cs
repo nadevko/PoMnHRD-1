@@ -1,3 +1,4 @@
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using PMnHRD1.App.Models;
@@ -17,7 +18,6 @@ public class Tabs : ReactiveObject, IRoutableViewModel
         GoSuite = ReactiveCommand.CreateFromObservable<Models.Suite, IRoutableViewModel>(suite =>
             HostScreen.Router.Navigate.Execute(new Suite(suite))
         );
-        // this.WhenAnyValue(x => x.SelectedTest).WhereNotNull().InvokeCommand(GoTest);
     }
 
     private Suite? _selectedTest;
@@ -30,4 +30,7 @@ public class Tabs : ReactiveObject, IRoutableViewModel
 
     public ObservableCollection<Models.Suite> Suites { get; } =
         Locator.Current.GetService<Services.IData>()!.Suites;
+
+    public ObservableCollection<IResult> Results { get; } =
+        Locator.Current.GetService<Services.IStats>()!.Get();
 }

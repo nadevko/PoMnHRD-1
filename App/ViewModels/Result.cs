@@ -18,6 +18,7 @@ public class Result : ReactiveObject, IRoutableViewModel
         Current = result;
         GoHome = ReactiveCommand.CreateFromObservable<Unit, IRoutableViewModel?>(unit =>
         {
+            Locator.Current.GetService<Services.IStats>()!.Push(Current);
             while (HostScreen.Router.NavigationStack.Count > 2)
                 HostScreen.Router.NavigationStack.RemoveAt(1);
             return HostScreen.Router.NavigateBack.Execute();

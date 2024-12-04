@@ -49,7 +49,7 @@ public class Data : IData
     public static readonly JsonSerializerOptions Options =
         new()
         {
-            Converters = { new TestConverter(), new TestCostsConverter() },
+            Converters = { new TestConverter(), new TestCostsConverter(), new ResultConverter() },
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
 }
@@ -161,4 +161,19 @@ public class TestCostsConverter : JsonConverter<TestCosts>
         TestCosts value,
         JsonSerializerOptions options
     ) => JsonSerializer.Serialize(writer, value, options);
+}
+
+public class ResultConverter : JsonConverter<IResult>
+{
+    public override IResult? Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options
+    ) => JsonDocument.ParseValue(ref reader).Deserialize<ResultCosts>(options);
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        IResult value,
+        JsonSerializerOptions options
+    ) => JsonSerializer.Serialize(writer, value, value.GetType(), options);
 }
