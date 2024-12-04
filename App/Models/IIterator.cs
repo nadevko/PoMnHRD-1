@@ -10,4 +10,5 @@ public interface IIterator : IEnumerator<IQuestion>
     string? GetAnswer();
     string[] GetAnswers();
     IResult GetResult(TimeSpan time, string name, int id);
+    public bool IsEnabled(string answer);
 }

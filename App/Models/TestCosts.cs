@@ -37,17 +37,17 @@ public partial class TestCosts : ITest
 
         private List<QuestionCosts> _list;
 
-        private int index = 0;
-        private int?[] results;
+        private int index;
+        private int[] answerIds;
 
         public EnumeratorCosts(TestCosts test)
         {
             _test = test;
-            _list = new(_test._questionCosts.OrderBy(_ => _random.Next()));
-            results = new int?[_list.Count];
-            for (int i = 0; i < results.Length; i++)
-                results[i] = null;
-            _current = _list[index];
+            _list = [.. _test._questionCosts.OrderBy(_ => _random.Next())];
+            answerIds = new int[_list.Count];
+            for (int i = 0; i < answerIds.Length; i++)
+                answerIds[i] = -1;
+            _current = _list[index = 0];
         }
 
         private QuestionCosts _current;
@@ -59,8 +59,10 @@ public partial class TestCosts : ITest
         public void Reset()
         {
             _list = [.. _list.OrderBy(_ => _random.Next())];
-            results = new int?[_list.Count];
-            index = 0;
+            answerIds = new int[_list.Count];
+            for (int i = 0; i < answerIds.Length; i++)
+                answerIds[i] = -1;
+            _current = _list[index = 0];
         }
 
         public bool MoveNext()
@@ -88,12 +90,19 @@ public partial class TestCosts : ITest
         public IResult GetResult(TimeSpan time, string name, int id)
         {
             ResultCosts? result = null;
-            int? sum = results.Sum();
+            int sum = answerIds
+                .Select(
+                    (elem, i) =>
+                        elem == -1
+                            ? 0
+                            : ((_test.Questions[i] as QuestionCosts)!.Costs ?? _test.Costs)[elem]
+                )
+                .Sum();
             foreach (var i in _test.Results)
                 if (i.From <= sum && sum < i.To)
                     result = i;
             if (result == null)
-                throw new Exception($"There are no results for {sum}");
+                throw new NotImplementedException($"There are no results for {sum}");
             return new ResultCosts()
             {
                 Text = result.Text,
@@ -104,21 +113,16 @@ public partial class TestCosts : ITest
             };
         }
 
-        public int SetAnswer(string answer)
-        {
-            var answerId = (_current.Answers ?? _test.Answers).IndexOf(answer);
-            if (answerId == -1)
-                return -1;
-            results[index] = (_current.Costs ?? _test.Costs)[answerId];
-            return answerId;
-        }
+        public int SetAnswer(string answer) =>
+            answerIds[index] = (_current.Answers ?? _test.Answers).IndexOf(answer);
 
         public string? GetAnswer() =>
-            results[index] == null
-                ? null
-                : (_current.Answers ?? _test.Answers)![(int)results[index]!];
+            answerIds[index] == -1 ? null : (_current.Answers ?? _test.Answers)[answerIds[index]];
 
         public string[] GetAnswers() => _current.Answers ?? _test.Answers;
+
+        public bool IsEnabled(string answer) =>
+            answerIds[index] == (_current.Answers ?? _test.Answers).IndexOf(answer);
     }
 }
 

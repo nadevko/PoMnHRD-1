@@ -68,28 +68,22 @@ public class Question : ReactiveObject, IRoutableViewModel
                 HostScreen.Router.Navigate.Execute(
                     new Result(_enumerator.GetResult(_timeSpan, test.Name, test.Id))
                 );
-                return new Unit();
+                return Unit.Default;
             }
             CurrentCount++;
             Current = _enumerator.Current;
-            var answer = _enumerator.GetAnswer();
-            if (answer != null)
-                question.Find<Button>(answer)!.IsEnabled = true;
-            return new Unit();
+            return Unit.Default;
         });
         GoPrevious = ReactiveCommand.Create<Views.Question, Unit>(question =>
         {
             if (!_enumerator.MovePrevious())
             {
                 HostScreen.Router.NavigateBack.Execute();
-                return new Unit();
+                return Unit.Default;
             }
             CurrentCount--;
             Current = _enumerator.Current;
-            var answer = _enumerator.GetAnswer();
-            if (answer != null)
-                question.Find<Button>(answer)!.IsEnabled = true;
-            return new Unit();
+            return Unit.Default;
         });
         _timer.Tick += Tick;
         _timer.Start();
@@ -97,6 +91,7 @@ public class Question : ReactiveObject, IRoutableViewModel
     }
 
     private IIterator _enumerator;
+    private Button? _selected;
     private IQuestion _current = null!;
     public IQuestion Current
     {
