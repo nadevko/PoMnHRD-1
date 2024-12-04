@@ -11,6 +11,7 @@ public class Suite : ReactiveObject, IRoutableViewModel
     public string UrlPathSegment { get; } = "test";
     public ReactiveCommand<Unit, IRoutableViewModel> GoBack { get; }
     public ReactiveCommand<ITest, IRoutableViewModel> GoTest { get; }
+    public ReactiveCommand<int, Unit> Reset { get; }
 
     public Suite(Models.Suite suite)
     {
@@ -21,6 +22,11 @@ public class Suite : ReactiveObject, IRoutableViewModel
         GoTest = ReactiveCommand.CreateFromObservable<ITest, IRoutableViewModel>(test =>
             HostScreen.Router.Navigate.Execute(new Question(test))
         );
+        Reset = ReactiveCommand.Create<int,Unit>(id =>
+        {
+            Locator.Current.GetService<Services.IStats>()!.Reset(id);
+            return Unit.Default;
+        });
     }
 
     public Models.Suite Data { get; }

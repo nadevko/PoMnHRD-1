@@ -112,7 +112,8 @@
                             Padding="10,5"
                             CornerRadius="5" />
                     <Button Content="Reset"
-                            CommandParameter="{Binding}"
+                            Command="{Binding $parent[v:Suite].((vm:Suite)DataContext).Reset}"
+                            CommandParameter="{Binding Id}"
                             Background="{DynamicResource SystemAccentColor}"
                             Foreground="White"
                             FontWeight="Bold"

@@ -7,4 +7,5 @@ interface IStats
 {
     void Push(IResult result);
     ObservableCollection<IResult> Get();
+    void Reset(int id);
 }

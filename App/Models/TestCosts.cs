@@ -106,7 +106,7 @@ public partial class TestCosts : ITest
             return new ResultCosts()
             {
                 Text = result.Text,
-                Date = DateOnly.FromDateTime(DateTime.Now),
+                Date = DateTime.Now,
                 Time = time,
                 Name = name,
                 Id = id,
@@ -139,7 +139,7 @@ public class ResultCosts : IResult
     public int From { get; set; }
     public int To { get; set; }
     public TimeSpan Time { get; set; }
-    public DateOnly Date { get; set; }
+    public DateTime Date { get; set; }
     public int Id { get; set; }
     public string? Name { get; set; }
 }

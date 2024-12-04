@@ -36,7 +36,7 @@ public class Stats : IStats
         File.WriteAllText(FilePath, json);
     }
 
-    public void RemoveAll(int id)
+    public void Reset(int id)
     {
         data.Where(result => result.Id == id).ToList().ForEach(item => data.Remove(item));
         File.WriteAllText(FilePath, JsonSerializer.Serialize(data, Data.Options));

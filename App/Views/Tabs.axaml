@@ -87,18 +87,38 @@
       <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <DataGrid ItemsSource="{Binding Results}" AutoGenerateColumns="False" HeadersVisibility="Column">
           <DataGrid.Columns>
-            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
-
-            <DataGridTemplateColumn Header="Text" Width="4*">
+            <DataGridTemplateColumn Header="Name" Width="2*">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate>
-                  <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+                  <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,8" Text="{Binding Name}" TextWrapping="Wrap" />
                 </DataTemplate>
               </DataGridTemplateColumn.CellTemplate>
             </DataGridTemplateColumn>
 
-            <DataGridTextColumn Header="Elapsed time" Binding="{Binding Time, StringFormat=hh\\:mm\\:ss}" Width="1.5*"/>
-            <DataGridTextColumn Header="Date of test" Binding="{Binding Date, StringFormat=yyyy-MM-dd}" Width="1.5*"/>
+            <DataGridTemplateColumn Header="Text" Width="4*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,8" Text="{Binding Text}" TextWrapping="Wrap" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Elapsed time" Width="1.5*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,8" Text="{Binding Time, StringFormat=hh\\:mm\\:ss}" TextWrapping="Wrap" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
+            <DataGridTemplateColumn Header="Date of test" Width="1.5*">
+              <DataGridTemplateColumn.CellTemplate>
+                <DataTemplate>
+                  <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Margin="0,8" Text="{Binding Date, StringFormat=yyyy-MM-dd hh\\:mm\\:ss}" TextWrapping="Wrap" />
+                </DataTemplate>
+              </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+
           </DataGrid.Columns>
         </DataGrid>
       </ScrollViewer>

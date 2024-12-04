@@ -91,7 +91,6 @@ public class Question : ReactiveObject, IRoutableViewModel
     }
 
     private IIterator _enumerator;
-    private Button? _selected;
     private IQuestion _current = null!;
     public IQuestion Current
     {
