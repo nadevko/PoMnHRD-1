@@ -1,1 +1,1 @@
-final: prev: { PMnHRD1 = prev.callPackage ./PMnHRD1.nix { }; }
+final: prev: { bsuir-PMnHRD1 = prev.callPackage ./PMnHRD1.nix { }; }

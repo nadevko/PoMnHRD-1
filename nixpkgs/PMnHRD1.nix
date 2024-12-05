@@ -4,7 +4,7 @@
   dotnetCorePackages,
 }:
 buildDotnetModule {
-  pname = "PMnHRD1";
+  pname = "bsuir-PMnHRD1";
   version = "1.0.0";
 
   src = ../App;
