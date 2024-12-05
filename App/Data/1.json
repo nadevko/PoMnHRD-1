@@ -1,22 +1,24 @@
 {
   "name": "Делегирование полномочий и принятие решений",
-  "description": "Totam temporibus accusantium molestiae et debitis provident excepturi in. Quibusdam qui cumque perspiciatis quod sint. Dolore quasi quia impedit quam labore. Eos expedita consequatur quos.",
+  "description": "Делегирование полномочий и принятие решений являются важнейшими аспектами эффективного управления организацией. Делегирование полномочий позволяет руководителям распределять ответственность и повышать производительность, в то время как принятие решений определяет стратегическое направление организации и решает проблемы. Эта тема исследует ключевые принципы делегирования полномочий, различные стили и факторы, влияющие на принятие решений.",
   "id": 1,
   "externals": [
-    "http://lively-dame.com",
-    "https://disfigured-foodstuffs.org",
-    "https://flickering-hazel.biz"
+    "Искусство делегирования",
+    "Эффективное делегирование",
+    "Делегирование и управление",
+    "Делегирование без паники",
+    "Простое делегирование"
   ],
   "tests": [
     {
       "type": "Costs",
-      "name": "Сущность и роль решений в процессе управления",
-      "description": "Aut sed recusandae qui incidunt. Eveniet et commodi dolorum omnis corrupti voluptatem. Quam odit illo et quibusdam repellendus id sed. Assumenda recusandae nam distinctio eius impedit velit ullam.",
+      "name": "Оценка навыков делегирования",
+      "description": "Этот тест оценивает ваши навыки делегирования полномочий по ряду критериев, таких как ясность инструкций, определение соответствующих задач, предоставление полномочий и обратная связь. Результаты теста помогут вам определить области, в которых вы преуспеваете, и области, требующие улучшения.",
       "id": 1,
       "externals": [
-        "https://witty-sorbet.net",
-        "http://gigantic-clef.info",
-        "http://lean-habit.name"
+        "Искусство делегирования",
+        "Эффективное делегирование",
+        "Делегирование для руководителей"
       ],
       "costs": [-2, -1, 1, 2],
       "answers": [
@@ -210,13 +212,13 @@
     },
     {
       "type": "Costs",
-      "name": "тест 2",
-      "description": "Ullam sequi velit exercitationem voluptas nihil illum enim aliquid. Qui voluptate eligendi exercitationem non voluptas ea magnam. Sapiente esse numquam labore magnam. Sit voluptatem harum sunt.",
+      "name": "Диагностика готовности к передаче полномочий",
+      "description": "Этот тест поможет вам определить, насколько вы готовы делегировать полномочия другим. Он оценивает такие факторы, как доверие, контроль и организационные факторы. Результаты теста могут помочь вам спланировать стратегию постепенной передачи полномочий и выявить потенциальные препятствия.",
       "id": 2,
       "externals": [
-        "https://witty-sorbet.net",
-        "http://gigantic-clef.info",
-        "http://lean-habit.name"
+        "Делегирование и управление",
+        "Мастерство делегирования",
+        "Успешное делегирование"
       ],
       "costs": [-2, -1, 1, 2],
       "answers": [
@@ -332,13 +334,13 @@
     },
     {
       "type": "Costs",
-      "name": "тест 3",
-      "description": "Ullam sequi velit exercitationem voluptas nihil illum enim aliquid. Qui voluptate eligendi exercitationem non voluptas ea magnam. Sapiente esse numquam labore magnam. Sit voluptatem harum sunt.",
+      "name": "Мои сильные и слабые стороны в принятии решений",
+      "description": "Этот самоанализ направлен на то, чтобы помочь вам оценить свои сильные и слабые стороны в процессе принятия решений. Он побуждает вас размышлять о ваших типичных подходах, предубеждениях и областях для роста. Самоанализ может способствовать более осознанному и эффективному принятию решений.",
       "id": 3,
       "externals": [
-        "https://witty-sorbet.net",
-        "http://gigantic-clef.info",
-        "http://lean-habit.name"
+        "Делегирование без паники",
+        "Делегирование как босс",
+        "Руководство делегирования"
       ],
       "costs": [-2, -1, 1, 2],
       "answers": [
