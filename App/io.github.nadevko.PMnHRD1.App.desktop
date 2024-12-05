@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=PMnHRD1
+GenericName=PMnHRD1 psychological tests
+Icon=io.github.nadevko.PMnHRD1.App
+Comment=Solve and view psychological tests
+Categories=Game
+Terminal=false
+Exec=PMnHRD1.App
+

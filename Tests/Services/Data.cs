@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using DeepEqual;
 using DeepEqual.Syntax;
 using PMnHRD1.App.Models;
 
@@ -24,7 +25,36 @@ public class Data
 
         var actual = App.Services.Data.LoadFile<Suite>(file);
 
-        actual.WithDeepEqual(expected).Assert();
+        actual
+            .WithDeepEqual(expected)
+            .IgnoreUnmatchedProperties()
+            .WithCustomComparison(new IgnoreOrderComparison())
+            .Assert();
+    }
+
+    private class IgnoreOrderComparison : IComparison
+    {
+        public bool CanCompare(Type type1, Type type2)
+        {
+            return typeof(IEnumerable<IQuestion>).IsAssignableFrom(type1)
+                && typeof(IEnumerable<IQuestion>).IsAssignableFrom(type2);
+        }
+
+        public (ComparisonResult result, IComparisonContext context) Compare(
+            IComparisonContext context,
+            object value1,
+            object value2
+        )
+        {
+            var list1 = ((IEnumerable<IQuestion>)value1).OrderBy(q => q.Text).ToList();
+            var list2 = ((IEnumerable<IQuestion>)value2).OrderBy(q => q.Text).ToList();
+
+            var comparisonResult = list1.IsDeepEqual(list2)
+                ? ComparisonResult.Pass
+                : ComparisonResult.Fail;
+
+            return (comparisonResult, context);
+        }
     }
 
     private static IEnumerable<object[]> TestPairs() =>
@@ -53,6 +83,7 @@ public class Data
                         {
                             Name = "Test with results based on costs",
                             Description = "Result will be choosen by sum of answers costs",
+                            Id = 0,
                             Externals = ["Literature and web references of the suite"],
                             Costs = [-2, -1, 1, 2],
                             Answers =

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -10,8 +9,8 @@ namespace PMnHRD1.App.Services;
 public class Stats : IStats
 {
     private static readonly string FilePath = Path.Combine(
-        AppDomain.CurrentDomain.BaseDirectory,
-        "stats.json"
+        Xdg.Directories.BaseDirectory.StateHome,
+        "io-github-nadevko-PMnHRD1-App-stats.json"
     );
 
     private readonly ObservableCollection<IResult> data;
