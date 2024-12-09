@@ -35,5 +35,6 @@ mkShell rec {
 
   shellHook = ''
     install -D ${vscode-settings} .vscode/settings.json
+    unset SOURCE_DATE_EPOCH
   '';
 }

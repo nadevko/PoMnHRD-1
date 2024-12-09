@@ -52,12 +52,12 @@ buildDotnetModule (
     postInstall = ''
       icon=App/Assets/icon/app.ico
       mkdir --parent $out/share/icons/hicolor/scalable/apps
-      magick $icon $out/share/icons/hicolor/scalable/apps/io.github.nadevko.PMnHRD1.App.svg
+      magick $icon $out/share/icons/hicolor/scalable/apps/io.github.nadevko.pmnhrd1.app.svg
       for i in 16 24 48 64 96 128 256 512; do
         size=''${i}x''${i}
         dir=$out/share/icons/hicolor/$size/apps
         mkdir -p $dir
-        magick $icon -background none -resize $size $dir/io.github.nadevko.PMnHRD1.App.png
+        magick $icon -background none -resize $size $dir/io.github.nadevko.pmnhrd1.app.png
       done
     '';
   }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-	<id>io.github.nadevko.PMnHRD1.App</id>
+	<id>io.github.nadevko.pmnhrd1.app</id>
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-only</project_license>
 	<name>PMnHRD-1</name>
@@ -8,14 +8,22 @@
 	<description>
 		<p>Program for taking psychological tests (PMnHRD task).</p>
 	</description>
-	<launchable type="desktop-id">io.github.nadevko.PMnHRD1.App.desktop</launchable>
+	<launchable type="desktop-id">io.github.nadevko.pmnhrd1.app.desktop</launchable>
 	<url type="homepage">https://github.com/nadevko/bsuir-PMnHRD-1</url>
 	<screenshots>
 		<screenshot type="default">
 			<image>https://github.com/nadevko/bsuir-PMnHRD-1/tree/master/screenshot.png</image>
+			<caption>Screenshot of PMnHRD-1 application</caption>
 		</screenshot>
 	</screenshots>
+	<releases>
+		<release version="1.0.0" date="2024-12-10">
+			<description>
+				<p>Initial release</p>
+			</description>
+		</release>
+	</releases>
 	<provides>
-		<id>io.github.nadevko.PMnHRD1.App.desktop</id>
+		<id>io.github.nadevko.pmnhrd1.app.desktop</id>
 	</provides>
 </component>
