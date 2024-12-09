@@ -23,7 +23,7 @@ buildDotnetModule (final: {
   ];
 
   meta = with lib; {
-    mainProgram = "PMnHRD1.App";
+    mainProgram = "pmnhrd1-app";
     description = "Program for taking psychological tests (PMnHRD task).";
     homepage = "https://github.com/nadevko/bsuir-PMnHRD-1";
     license = licenses.gpl3Only;

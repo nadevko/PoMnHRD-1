@@ -1,0 +1,119 @@
+= bsuir-PMnHRD-1
+
+PMnHRD1 is a program designed to solve tests related to the subject "Psychology
+of Management and Development of Human Resources". The program allows users to
+take various tests, store the results, and manage them through a user-friendly
+interface.
+
+== Installation
+
+=== General
+
+Clone the repository
+
+[source,shell]
+----
+git clone https://github.com/nadevko/bsuir-PMnHRD-1
+----
+
+Navigate to the project directory
+
+[source,shell]
+----
+cd bsuir-PMnHRD-1/App
+----
+
+Restore the required dependencies
+
+[source,shell]
+----
+dotnet restore
+----
+
+Run as dotnet project
+
+[source,shell]
+----
+dotnet run
+----
+
+=== nix-env
+
+This method can be used on any system with Nix package manager.
+
+Clone the repository
+
+[source,shell]
+----
+git clone https://github.com/nadevko/bsuir-PMnHRD-1
+----
+
+Navigate to the project directory
+
+[source,shell]
+----
+cd bsuir-PMnHRD-1
+----
+
+Build package
+
+[source,shell]
+----
+nix-build -E 'with import <nixpkgs> { }; callPackage ./nixpkgs/pmnhrd1-app.nix { }'
+----
+
+Install package
+
+[source,shell]
+----
+nix-env -i result
+----
+
+After installation, repository can be removed
+
+[source,shell]
+----
+cd ..
+rm -rf PMnHRD1
+----
+
+=== NixOS
+
+Way to install the application on NixOS.
+
+Add repository as channel to the system
+
+[source,shell]
+----
+nix-channel --add https://github.com/nadevko/bsuir-PMnHRD-1/archive/master.tar.gz bsuir-PMnHRD-1
+nix-channel --update
+----
+
+Add overlay to the system configuration.nix
+
+[source,nix]
+----
+{
+    config.nixpkgs.overlays = [ (import <bsuir-PMnHRD-1/nixpkgs>) ];
+}
+----
+
+Add to system packages
+
+[source,nix]
+----
+{
+    environment.systemPackages = with pkgs; [
+        bsuir-PMnHRD1-app
+    ];
+}
+----
+
+== Usage
+
+To run the application (not general installation)
+
+[source,shell]
+----
+pmnhrd1-app
+----

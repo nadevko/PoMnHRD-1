@@ -1,9 +1,6 @@
 {
   pkgs ? import <nixpkgs> {
-    overlays = [
-      (import <bsuir-tex/nixpkgs>)
-      (import ./nixpkgs)
-    ];
+    overlays = [ (import ./nixpkgs) ];
   },
 }:
 with pkgs;
@@ -25,13 +22,7 @@ mkShell rec {
     }
   );
 
-  packages = [
-    (texliveMedium.withPackages (_: with texlivePackages; [ bsuir-tex ]))
-    dotnetPkg
-    inkscape-with-extensions
-    plantuml
-    python312Packages.pygments
-  ] ++ dotnetDeps;
+  packages = [ dotnetPkg ] ++ dotnetDeps;
   LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath dotnetDeps;
   DOTNET_ROOT = "${dotnetPkg}";
 
