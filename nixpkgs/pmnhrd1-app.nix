@@ -50,7 +50,7 @@ buildDotnetModule (
     ];
 
     postInstall = ''
-      icon=App/Assets/icon.ico
+      icon=App/Assets/icon/app.ico
       mkdir --parent $out/share/icons/hicolor/scalable/apps
       magick $icon $out/share/icons/hicolor/scalable/apps/io.github.nadevko.PMnHRD1.App.svg
       for i in 16 24 48 64 96 128 256 512; do

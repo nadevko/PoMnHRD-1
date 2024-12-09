@@ -22,7 +22,14 @@ mkShell rec {
     }
   );
 
-  packages = [ dotnetPkg ] ++ dotnetDeps;
+  packages = [
+    dotnetPkg
+    appstream
+    dpkg
+    flatpak
+    flatpak-builder
+    rpm
+  ] ++ dotnetDeps;
   LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath dotnetDeps;
   DOTNET_ROOT = "${dotnetPkg}";
 

@@ -47,4 +47,5 @@
   (fetchNuGet { pname = "Tmds.DBus.Protocol"; version = "0.16.0"; hash = "sha256-vKYEaa1EszR7alHj48R8G3uYArhI+zh2ZgiBv955E98="; })
   (fetchNuGet { pname = "Xdg.Directories"; version = "0.1.2"; hash = "sha256-jdN03SWEOoEB60SORdA001Yn0A2ias3DbP96GtTosak="; })
   (fetchNuGet { pname = "CSharpier"; version = "0.29.2"; hash = "sha256-+Mrb7VGeKuMS4hEmejthFWuX5Ga299pbPScmFtSg644="; })
+  (fetchNuGet { pname = "KuiperZone.PupNet"; version = "1.8.0"; hash = "sha256-fL86pEFoKSMUS9wVzn/xT0vmWmrhLRbLc2s7yKCrodE="; })
 ]
