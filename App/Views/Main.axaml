@@ -11,7 +11,7 @@
     xmlns:v="using:PMnHRD1.App.Views"
     x:Class="PMnHRD1.App.Views.Main"
     x:DataType="vm:Main"
-    Icon="/Assets/avalonia-logo.ico"
+    Icon="avares://Assets/icon/app.ico"
     Title="PMnHRD1.App">
 
     <Design.DataContext>

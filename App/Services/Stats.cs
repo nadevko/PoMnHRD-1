@@ -10,20 +10,24 @@ public class Stats : IStats
 {
     private static readonly string FilePath = Path.Combine(
         Xdg.Directories.BaseDirectory.StateHome,
-        "io-github-nadevko-PMnHRD1-App-stats.json"
+        "nadevko-bsuir",
+        "PMnHRD1-App",
+        "stats.json"
     );
 
     private readonly ObservableCollection<IResult> data;
 
     public Stats()
     {
-        if (File.Exists(FilePath))
+        var directory = Path.GetDirectoryName(FilePath)!;
+        Directory.CreateDirectory(directory);
+        if (!File.Exists(FilePath))
         {
-            var json = File.ReadAllText(FilePath);
-            data = JsonSerializer.Deserialize<ObservableCollection<IResult>>(json, Data.Options)!;
+            data = [];
             return;
         }
-        data = [];
+        var json = File.ReadAllText(FilePath);
+        data = JsonSerializer.Deserialize<ObservableCollection<IResult>>(json, Data.Options)!;
     }
 
     public ObservableCollection<IResult> Get() => data;
