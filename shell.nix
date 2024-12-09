@@ -33,10 +33,9 @@ mkShell rec {
     python312Packages.pygments
   ] ++ dotnetDeps;
   LD_LIBRARY_PATH = with pkgs; lib.makeLibraryPath dotnetDeps;
-  DOTNET_ROOT = "${dotnetPkg}/dotnet";
+  DOTNET_ROOT = "${dotnetPkg}";
 
   shellHook = ''
-    mkdir .vscode &>/dev/null
-    cp --force ${vscode-settings} .vscode/settings.json
+    install -D ${vscode-settings} .vscode/settings.json
   '';
 }
