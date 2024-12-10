@@ -2,18 +2,15 @@
   lib,
   buildDotnetModule,
   dotnetCorePackages,
-  copyDesktopItems,
-  makeDesktopItem,
-  imagemagick,
 }:
 buildDotnetModule (
   final:
   let
-    uri = "io.github.nadevko.bsuir.PMnHRD1.App";
+    appId = "io.github.nadevko.pmnhrd1.app";
   in
   {
     pname = "bsuir-PMnHRD1-app";
-    version = "1.0.0";
+    version = "1.0";
 
     src = ./..;
     nugetDeps = ./deps.nix;
@@ -22,42 +19,29 @@ buildDotnetModule (
     dotnet-sdk = dotnetCorePackages.sdk_8_0;
     dotnet-runtime = dotnetCorePackages.runtime_8_0;
 
-    nativeBuildInputs = [
-      copyDesktopItems
-      imagemagick
-    ];
-
     meta = with lib; {
       mainProgram = "pmnhrd1-app";
       description = "Program for taking psychological tests (PMnHRD task).";
+      longDescription = ''
+        This application is designed to help users complete various psychological
+        tests about management. It provides a user-friendly interface, twenty one
+        test separated into seven topics. It includes various test modules such as
+        personality assessment, stress management, and leadership skills evaluation.
+
+        The application was developed as BSUIR task for "Psychology of Management
+        and Development of Human Resources" subject.
+      '';
       homepage = "https://github.com/nadevko/bsuir-PMnHRD-1";
       license = licenses.gpl3Only;
       platforms = platforms.all;
     };
 
-    desktopItems = [
-      (makeDesktopItem {
-        name = uri;
-        exec = final.meta.mainProgram;
-        desktopName = "PMnHRD-1";
-        genericName = final.meta.description;
-        icon = uri;
-        categories = [
-          "Education"
-          "Utility"
-        ];
-      })
-    ];
-
     postInstall = ''
-      icon=App/Assets/icon/app.ico
-      mkdir --parent $out/share/icons/hicolor/scalable/apps
-      magick $icon $out/share/icons/hicolor/scalable/apps/io.github.nadevko.pmnhrd1.app.svg
-      for i in 16 24 48 64 96 128 256 512; do
-        size=''${i}x''${i}
-        dir=$out/share/icons/hicolor/$size/apps
-        mkdir -p $dir
-        magick $icon -background none -resize $size $dir/io.github.nadevko.pmnhrd1.app.png
+      install -D -m 644 App/Deploy/app.desktop $out/share/applications/${appId}.desktop
+      icons=$out/share/icons/hicolor
+      install -D -m 644 App/Assets/icon.svg $icons/scalable/apps/${appId}.svg
+      for size in 16 24 32 48 64 96 128 256 512; do
+        install -D -m 644 App/Assets/icon.$size.png $icons/''${size}x''${size}/apps/${appId}.png
       done
     '';
   }

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=PMnHRD-1
+Version=1.0
+Exec=pmnhrd1-app
+Icon=io.github.nadevko.pmnhrd1.app
+Categories=Education
+
+GenericName=Program for taking psychological tests (PMnHRD task).
+GenericName[be]=Праграма для праходжання псіхалагічных тэстаў (ПКіРЧР).
+GenericName[ru]=Программа для прохождения психологических тестов (ПУиРЧР).

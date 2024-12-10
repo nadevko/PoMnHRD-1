@@ -11,14 +11,14 @@
     xmlns:v="using:PMnHRD1.App.Views"
     x:Class="PMnHRD1.App.Views.Main"
     x:DataType="vm:Main"
-    Icon="avares://pmnhrd1-app/Assets/icon/app.ico"
+    Icon="avares://pmnhrd1-app/Assets/icon.ico"
     Title="PMnHRD1.App">
 
     <Design.DataContext>
         <vm:Main />
     </Design.DataContext>
 
-    <rxui:RoutedViewHost Grid.Row="0" Router="{Binding Router}">
+    <rxui:RoutedViewHost Router="{Binding Router}">
         <rxui:RoutedViewHost.DefaultContent>
             <v:Tabs />
         </rxui:RoutedViewHost.DefaultContent>
