@@ -1,119 +1,112 @@
 = bsuir-PMnHRD-1
 
-PMnHRD1 is a program designed to solve tests related to the subject "Psychology
-of Management and Development of Human Resources". The program allows users to
-take various tests, store the results, and manage them through a user-friendly
-interface.
+This application is designed to help users complete various psychological tests
+about management. It provides a user-friendly interface, twenty one test
+separated into seven topics. It includes various test modules such as
+personality assessment, stress management, and leadership skills evaluation.
+
+The application was developed as BSUIR task for "Psychology of Management and
+Development of Human Resources" subject.
 
 == Installation
 
-=== General
+=== Windows
 
-Clone the repository
+Requirements:
 
-[source,shell]
-----
-git clone https://github.com/nadevko/bsuir-PMnHRD-1
-----
+. Windows 10 or later
+. .NET 8.0 runtime
 
-Navigate to the project directory
+Installation steps:
 
-[source,shell]
-----
-cd bsuir-PMnHRD-1/App
-----
+. Download the latest *.exe* release from the GitHub repository
+. Run the installer
 
-Restore the required dependencies
+=== Debian-based systems
 
-[source,shell]
-----
-dotnet restore
-----
+Requirements:
 
-Run as dotnet project
+. Any debian-based system
+. link:https://learn.microsoft.com/en-us/dotnet/core/install/linux-debian[Added microsoft dotnet repository]
 
-[source,shell]
-----
-dotnet run
-----
+Installation steps:
 
-=== nix-env
+. Download the latest *.deb* release from the GitHub repository
+. Run `sudo dpkg -i $downloaded_file`
 
-This method can be used on any system with Nix package manager.
+[CAUTION]
+====
+Not tested yet
+====
 
-Clone the repository
+=== RPM-based systems
 
-[source,shell]
-----
-git clone https://github.com/nadevko/bsuir-PMnHRD-1
-----
+Requirements:
 
-Navigate to the project directory
+. Any RPM-based system
+. link:https://learn.microsoft.com/en-us/dotnet/core/install/linux-fedora[Added microsoft dotnet repository]
 
-[source,shell]
-----
-cd bsuir-PMnHRD-1
-----
+Installation steps:
 
-Build package
+. Download the latest *.rpm* release from the GitHub repository
+. Run `sudo rpm -i $downloaded_file`
 
-[source,shell]
-----
-nix-build -E 'with import <nixpkgs> { }; callPackage ./nixpkgs/pmnhrd1-app.nix { }'
-----
+[CAUTION]
+====
+Not tested yet
+====
 
-Install package
+=== NixOS with channels
+
+. Add overlay as a channel:
 
 [source,shell]
 ----
-nix-env -i result
+sudo nix-channel --add https://github.com/nadevko/bsuir-PMnHRD-1/archive/master.tar.gz bsuir-pmnhrd
+sudo nix-channel --update
 ----
 
-After installation, repository can be removed
-
-[source,shell]
-----
-cd ..
-rm -rf PMnHRD1
-----
-
-=== NixOS
-
-Way to install the application on NixOS.
-
-Add repository as channel to the system
-
-[source,shell]
-----
-nix-channel --add https://github.com/nadevko/bsuir-PMnHRD-1/archive/master.tar.gz bsuir-PMnHRD-1
-nix-channel --update
-----
-
-Add overlay to the system configuration.nix
+. Add the following to your configuration.nix:
 
 [source,nix]
 ----
 {
-    config.nixpkgs.overlays = [ (import <bsuir-PMnHRD-1/nixpkgs>) ];
+  environment.systemPackages = with pkgs; [ bsuir-PMnHRD1-app ];
+  config.nixpkgs.overlays = [ (import <bsuir-pmnhrd/nixpkgs>) ];
 }
 ----
 
-Add to system packages
+[WARNING]
+====
+Rebuild your system configuration after adding overlay, otherwise the package
+will not be available, so rebuild will fail.
+====
 
-[source,nix]
-----
-{
-    environment.systemPackages = with pkgs; [
-        bsuir-PMnHRD1-app
-    ];
-}
-----
+=== Via nix package manager
+
+System requirements:
+
+. Linux or macOS
+. Nix package manager
+
+Installation steps:
+
+. Clone the repository and enter the repository root
+. Install the package with `nix-env -i -f ./nixpkgs/pmnhrd1-app.nix`
+
+=== AppImage
+
+Requirements:
+
+. Any Linux distribution
+. FUSE
+
+Installation steps:
+
+. Download the latest *.AppImage* release from the GitHub repository
+. Execute downloaded file
 
 == Usage
 
-To run the application (not general installation)
-
-[source,shell]
-----
-pmnhrd1-app
-----
+After installation, the application can be started from the application menu or
+by running `pmnhrd-1` in the terminal.
