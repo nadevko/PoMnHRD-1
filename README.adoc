@@ -1,5 +1,7 @@
 = bsuir-PMnHRD-1
 
+image::screenshot.png[]
+
 This application is designed to help users complete various psychological tests
 about management. It provides a user-friendly interface, twenty one test
 separated into seven topics. It includes various test modules such as
@@ -104,9 +106,30 @@ Requirements:
 Installation steps:
 
 . Download the latest *.AppImage* release from the GitHub repository
-. Execute downloaded file
+
+To run application, execute downloaded file
 
 == Usage
 
 After installation, the application can be started from the application menu or
 by running `pmnhrd-1` in the terminal.
+
+== Tecnical details
+
+The application is written in C# using .NET 8.0. It uses the AvaloniaUI and
+ReactiveUI libraries for the user interface. The application is built using the
+pupnet tool and use Xdg.Directories for locating user data.
+
+Location of test results history:
+
+|===
+| OS | Location | Default full path
+
+| Windows
+| %LOCALAPPDATA%\nadevko-bsuir\PMnHRD1-App\stats.json
+| C:\Users\<YourUsername>\AppData\Local\nadevko-bsuir\PMnHRD1-App\stats.json
+
+| Linux
+| $XDG_STATE_HOME/nadevko-bsuir/PMnHRD1-App/stats.json
+| /home/<YourUsername>/.local/state/nadevko-bsuir/PMnHRD1-App/stats.json
+|===
